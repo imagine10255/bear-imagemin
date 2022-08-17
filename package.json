@@ -1,6 +1,6 @@
 {
   "name": "bear-node-imagemin",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Common tools and methods for project development",
   "keywords": [
     "typescript",
@@ -14,6 +14,9 @@
     "type": "git",
     "url": "https://github.com/imagine10255/bear-node-imagemin.git"
   },
+  "main": "dist/bear-node-imagemin.js",
+  "module": "dist/bear-node-imagemin.modern.js",
+  "types": "dist/index.d.ts",
   "bin": "bin/cli.js",
   "files": [
     "dist",
@@ -24,7 +27,7 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "run-s build:claer && tsc --project ./tsconfig.build.json",
+    "build": "run-s build:claer && microbundle src/index.ts -o dist --no-compress --no-css-modules --format modern,cjs",
     "build:claer": "rm -rf ./dist",
     "prepublishOnly": "run-s build",
     "test": "jest --coverage",
