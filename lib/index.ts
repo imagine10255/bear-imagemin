@@ -1,53 +1,57 @@
 #!/usr/bin/env node
 import yargs from 'yargs/yargs';
 import {hideBin} from 'yargs/helpers';
+import run from './lossySquash';
 
 module.exports = async function bearScript () {
     yargs(hideBin(process.argv))
-        .command('build-symbols [path] [idPrefix]', 'svg merge symbols', (yargs) => {
+        .command('lossySquash [path] [idPrefix]', 'lossy Squash image jpg, png', (yargs) => {
             return yargs
-                .positional('path', {
-                    describe: 'svg source path (ex: ./public/icon -> ./public/icon/_sources)',
-                    default: './public/static/plugins/iconsvg',
+                .positional('sourceFile', {
+                    describe: 'image source path (ex: ./example/source.png)',
+                    default: undefined,
                 })
-                .positional('idPrefix', {
-                    describe: 'id prefix name (ex: icon_ -> icon_arrow_right)',
-                    default: 'icon_',
+                .positional('saveFile', {
+                    describe: 'save file path (ex: ./example/lossySquash/image.png)',
+                    default: undefined,
+                })
+                .positional('quality', {
+                    describe: 'image squash quality .1 ~ .9',
+                    default: undefined,
+                })
+                .positional('width', {
+                    describe: 'image resize width',
+                    default: undefined,
+                })
+                .positional('height', {
+                    describe: 'image resize height',
+                    default: undefined,
                 });
         }, (argv) => {
-            const run = require('./build-symbols');
+            const run = require('./lossySquash');
             run(argv);
         })
 
-        .command('decode-iconfont [path]', 'svg merge symbols', (yargs) => {
+        .command('losslessSquash [path] [idPrefix]', 'lossy Squash image jpg, png', (yargs) => {
             return yargs
-                .positional('path', {
-                    describe: 'iconfont path (ex: ./public/iconfont -> ./public/iconfont/iconfont.js)',
-                    default: './public/static/plugins/iconfont',
+                .positional('sourceFile', {
+                    describe: 'image source path (ex: ./example/source.png)',
+                    default: undefined,
                 })
-                .positional('idPrefix', {
-                    describe: 'id prefix name (ex: icon_ -> icon_arrow_right)',
-                    default: 'icon_',
-                });
-
-        }, (argv) => {
-            const run = require('./decode-iconfont');
-            run(argv);
-        })
-
-        .command('imagemin [path]', 'symbols split svg list', (yargs) => {
-            return yargs
-                .positional('path', {
-                    describe: 'symbols path (ex: ./public/icon -> ./public/icon/index.svg)',
-                    default: './public/static/plugins/iconsvg',
+                .positional('saveFile', {
+                    describe: 'save file path (ex: ./example/lossySquash/image.png)',
+                    default: undefined,
                 })
-                .positional('idPrefix', {
-                    describe: 'id prefix name (ex: icon_ -> icon_arrow_right)',
-                    default: 'icon_',
+                .positional('width', {
+                    describe: 'image resize width',
+                    default: undefined,
+                })
+                .positional('height', {
+                    describe: 'image resize height',
+                    default: undefined,
                 });
-
         }, (argv) => {
-            const run = require('./imagemin');
+            const run = require('./losslessSquash');
             run(argv);
         })
         .demandCommand(1)

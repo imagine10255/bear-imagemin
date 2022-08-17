@@ -1,6 +1,6 @@
 {
   "name": "bear-node-imagemin",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Common tools and methods for project development",
   "keywords": [
     "typescript",
@@ -42,11 +42,15 @@
   },
   "dependencies": {
     "@types/imagemin": "^8.0.0",
+    "@types/imagemin-jpegtran": "^5.0.1",
     "@types/imagemin-mozjpeg": "^8.0.1",
+    "@types/imagemin-optipng": "^5.2.1",
     "@types/sharp": "^0.30.5",
     "bear-node-imagemin-core": "0.0.9",
     "imagemin": "7.0.1",
+    "imagemin-jpegtran": "^7.0.0",
     "imagemin-mozjpeg": "9.0.0",
+    "imagemin-optipng": "^8.0.0",
     "imagemin-pngquant": "9.0.2",
     "ora": "5.4.0",
     "sharp": "^0.30.7",

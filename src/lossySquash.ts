@@ -1,23 +1,22 @@
 import imagemin from 'imagemin';
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import imageminPngquant from 'imagemin-pngquant';
-import {queue} from 'sharp';
+import sharp from 'sharp';
 
 
 /**
  * 有損傷壓縮
- * imagemin-mozjpeg https://github.com/imagemin/imagemin-mozjpeg
- * imagemin-pngquant https://github.com/imagemin/imagemin-pngquant
+ * losslessSquash-mozjpeg https://github.com/imagemin/imagemin-mozjpeg
+ * losslessSquash-pngquant https://github.com/imagemin/imagemin-pngquant
  *
  * @param sourceFile
  * @param options
  */
-async function lossySquash (sourceFile: string, options: {
-    quality: number, // 1 - 100
+async function lossySquash (sourceFile: string, options?: {
+    quality?: number, // 1 - 100
     resize?: {
         width?: number,
         height?: number
-        isCheckIgnore?: boolean,
     },
 }){
     let quality = options?.quality ?? .75;
@@ -34,6 +33,13 @@ async function lossySquash (sourceFile: string, options: {
             })
         ]
     });
+
+    const resize = options?.resize;
+    if(resize){
+        res[0].data = await sharp(res[0].data)
+            .resize(resize?.width, resize?.height)
+            .toBuffer();
+    }
 
     return res[0];
 }

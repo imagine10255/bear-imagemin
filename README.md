@@ -9,7 +9,7 @@
 ## Install
 
 ```bash
-yarn add -D bear-node-imagemin
+yarn add -D bear-node-losslessSquash
 ```
 
 ## Document
