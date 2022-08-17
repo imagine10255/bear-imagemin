@@ -18,6 +18,7 @@ async function lossySquash (sourceFile: string, options?: {
     resize?: {
         width?: number,
         height?: number
+        ignoreOverflowSize?: boolean, // 是否忽略 目標尺寸 大於 目前尺寸, 變成放大
     },
 }){
     let quality = options?.quality ?? .75;
@@ -29,8 +30,9 @@ async function lossySquash (sourceFile: string, options?: {
     // 縮圖
     const resize = options?.resize;
     if(resize){
+        const ignoreOverflowSize = resize?.ignoreOverflowSize ?? false;
         bufferData = await sharp(bufferData)
-            .resize(resize?.width, resize?.height)
+            .resize(resize?.width, resize?.height, {withoutEnlargement: !ignoreOverflowSize})
             .toBuffer();
     }
 
