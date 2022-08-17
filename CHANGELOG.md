@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/imagine10255/bear-node-imagemin/compare/v0.0.5...v0.0.6) (2022-08-17)
+
+
+### Features
+
+* 新增 忽略圖片尺寸超過 ([a688f48](https://github.com/imagine10255/bear-node-imagemin/commit/a688f488c98e7fbaf25dca9f0d3bfb5d0ff2e785))
+
 ### 0.0.5 (2022-08-17)
 
 ### [1.2.3](https://github.com/imagine10255/bear-node-imagemin/compare/v1.2.2...v1.2.3) (2022-08-16)
