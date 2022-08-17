@@ -1,0 +1,1 @@
+declare type IconCode = 'angle_up'|'clone'|'test'|'user_profile';
