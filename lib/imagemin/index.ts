@@ -10,6 +10,7 @@ import {ISquashReturnRes} from '../../packages/bear-node-imagemin-core';
 import imagemin from 'imagemin';
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import imageminPngquant from 'imagemin-pngquant';
+import lossySquash from '../../src/lossySquash';
 
 // const imageminMozjpeg = require('imagemin-mozjpeg');
 
@@ -49,14 +50,22 @@ async function run(args: IArgs) {
     //     quality: 0.8,
     // });
 
-    const MyRes = await imagemin([sourceFile], {
-        plugins: [
-            imageminMozjpeg(),
-            imageminPngquant()
-        ]
+    // const MyRes = await imagemin([sourceFile], {
+    //     plugins: [
+    //         imageminMozjpeg(),
+    //         imageminPngquant()
+    //     ]
+    // });
+    //
+    // const oneRes = MyRes[0];
+    // fs.writeFileSync(saveFile, oneRes.data);
+
+
+    const MyRes = await lossySquash(sourceFile, {
+        quality: .8
     });
 
-    const oneRes = MyRes[0];
+    const oneRes = MyRes;
     fs.writeFileSync(saveFile, oneRes.data);
 
 

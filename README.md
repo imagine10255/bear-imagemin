@@ -14,8 +14,7 @@ yarn add -D bear-node-imagemin
 
 ## Document
 
-- [bear-node-imagemin build-symbols](./docs/build-symbols.md)
-- [bear-node-imagemin decode-iconfont](./docs/decode-iconfont.md)
+- [use-imagemin-to-compress-images](https://web.dev/i18n/zh/use-imagemin-to-compress-images/)
 
 ## License
 
