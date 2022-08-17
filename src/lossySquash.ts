@@ -2,6 +2,7 @@ import imagemin from 'imagemin';
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import imageminPngquant from 'imagemin-pngquant';
 import sharp from 'sharp';
+import * as fs from 'fs';
 
 
 /**
@@ -22,8 +23,19 @@ async function lossySquash (sourceFile: string, options?: {
     let quality = options?.quality ?? .75;
     quality = quality > .9 ? .9: quality;
 
+    // 原圖
+    let bufferData = fs.readFileSync(sourceFile);
 
-    const res = await imagemin([sourceFile], {
+    // 縮圖
+    const resize = options?.resize;
+    if(resize){
+        bufferData = await sharp(bufferData)
+            .resize(resize?.width, resize?.height)
+            .toBuffer();
+    }
+
+    // 壓縮
+    bufferData = await imagemin.buffer(bufferData, {
         plugins: [
             imageminMozjpeg({
                 quality: quality * 100, // 0 - 100 (100 有時會超過原圖大小)
@@ -34,14 +46,8 @@ async function lossySquash (sourceFile: string, options?: {
         ]
     });
 
-    const resize = options?.resize;
-    if(resize){
-        res[0].data = await sharp(res[0].data)
-            .resize(resize?.width, resize?.height)
-            .toBuffer();
-    }
 
-    return res[0];
+    return bufferData;
 }
 
 

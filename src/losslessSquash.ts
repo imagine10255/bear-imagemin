@@ -2,6 +2,7 @@ import imagemin from 'imagemin';
 import imageminJpegtran from 'imagemin-jpegtran';
 import imageminOptipng from 'imagemin-optipng';
 import sharp from 'sharp';
+import fs from 'fs';
 
 
 /**
@@ -18,22 +19,26 @@ async function losslessSquash (sourceFile: string, options: {
         height?: number
     },
 }){
-    const res = await imagemin([sourceFile], {
+    // 原圖
+    let bufferData = fs.readFileSync(sourceFile);
+
+    // 縮圖
+    const resize = options?.resize;
+    if(resize){
+        bufferData = await sharp(bufferData)
+            .resize(resize?.width, resize?.height)
+            .toBuffer();
+    }
+
+    // 壓縮
+    bufferData = await imagemin.buffer(bufferData, {
         plugins: [
             imageminJpegtran(),
             imageminOptipng()
         ]
     });
 
-
-    const resize = options?.resize;
-    if(resize){
-        res[0].data = await sharp(res[0].data)
-            .resize(resize?.width, resize?.height)
-            .toBuffer();
-    }
-
-    return res[0];
+    return bufferData;
 }
 
 

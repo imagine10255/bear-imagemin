@@ -12,7 +12,7 @@ module.exports = async function bearScript () {
                     default: undefined,
                 })
                 .positional('saveFile', {
-                    describe: 'save file path (ex: ./example/lossySquash/image.png)',
+                    describe: 'save file path (ex: ./example/lossySquash/先縮圖後壓縮image.png)',
                     default: undefined,
                 })
                 .positional('quality', {
@@ -39,7 +39,7 @@ module.exports = async function bearScript () {
                     default: undefined,
                 })
                 .positional('saveFile', {
-                    describe: 'save file path (ex: ./example/lossySquash/image.png)',
+                    describe: 'save file path (ex: ./example/lossySquash/先縮圖後壓縮image.png)',
                     default: undefined,
                 })
                 .positional('width', {
