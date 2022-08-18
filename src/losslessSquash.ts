@@ -1,6 +1,7 @@
 import imagemin from 'imagemin';
 import imageminJpegtran from 'imagemin-jpegtran';
 import imageminOptipng from 'imagemin-optipng';
+import imageminWebp from 'imagemin-webp';
 import sharp from 'sharp';
 import fs from 'fs';
 
@@ -37,6 +38,9 @@ async function losslessSquash (sourceFile: string, options: {
     bufferData = await imagemin.buffer(bufferData, {
         plugins: [
             imageminJpegtran(),
+            imageminWebp({
+                lossless: true,
+            }),
             imageminOptipng()
         ]
     });

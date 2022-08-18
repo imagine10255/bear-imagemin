@@ -45,6 +45,8 @@ async function lossySquash (sourceFile: string, options?: {
             }),
             imageminWebp({
                 quality: quality * 100, // 0 - 100 (100 有時會超過原圖大小)
+                lossless: false,
+                preset: 'picture',
             }),
             imageminPngquant({
                 quality: [0.1, quality],    // [0, 1]
