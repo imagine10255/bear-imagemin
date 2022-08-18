@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/imagine10255/bear-node-imagemin/compare/v0.0.7...v0.0.8) (2022-08-18)
+
+
+### Features
+
+* 新增 webp 參數 ([f0291e7](https://github.com/imagine10255/bear-node-imagemin/commit/f0291e734bfeab0ed1de9e78f930b6bdb5348f9e))
+
 ### [0.0.7](https://github.com/imagine10255/bear-node-imagemin/compare/v0.0.6...v0.0.7) (2022-08-18)
 
 
