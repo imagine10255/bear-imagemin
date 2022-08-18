@@ -40,15 +40,16 @@ async function lossySquash (sourceFile: string, options?: {
     // 壓縮
     bufferData = await imagemin.buffer(bufferData, {
         plugins: [
-            // imageminMozjpeg({
-            //     quality: quality * 100, // 0 - 100 (100 有時會超過原圖大小)
-            // }),
+            imageminMozjpeg({
+                quality: quality * 100, // 0 - 100 (100 有時會超過原圖大小)
+            }),
             imageminWebp({
                 quality: quality * 100, // 0 - 100 (100 有時會超過原圖大小)
             }),
-            // imageminPngquant({
-            //     quality: [0.1, quality]    // [0, 1]
-            // }),
+            imageminPngquant({
+                quality: [0.1, quality],    // [0, 1]
+                posterize: 4,
+            }),
         ]
     });
 
