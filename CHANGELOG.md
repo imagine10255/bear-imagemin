@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/imagine10255/bear-node-imagemin/compare/v0.0.6...v0.0.7) (2022-08-18)
+
+
+### Features
+
+* 新增 png posterize 4 ([b04e895](https://github.com/imagine10255/bear-node-imagemin/commit/b04e89552ec391a343fd050b06004e6152148726))
+
 ### [0.0.6](https://github.com/imagine10255/bear-node-imagemin/compare/v0.0.5...v0.0.6) (2022-08-17)
 
 
