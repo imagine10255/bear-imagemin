@@ -18,7 +18,7 @@ async function run(args: IArgs) {
         resize: {width, height}
     });
 
-    fs.writeFileSync(saveFile, res.data);
+    fs.writeFileSync(saveFile, res);
 
     logger.success(`Save to ${saveFile}`);
 

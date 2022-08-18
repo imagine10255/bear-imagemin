@@ -1,6 +1,6 @@
 # bear-node-imagemin
 
-> Common tools and methods for project development
+> squash + resize typescript package by imagemin + sharp
 
 [![NPM](https://img.shields.io/npm/v/bear-node-imagemin.svg)](https://www.npmjs.com/package/bear-node-imagemin)
 [![npm](https://img.shields.io/npm/dm/bear-node-imagemin.svg)](https://www.npmjs.com/package/bear-node-imagemin)
@@ -9,7 +9,7 @@
 ## Install
 
 ```bash
-yarn add -D bear-node-losslessSquash
+yarn add -D bear-node-imagemin
 ```
 
 ## Document
