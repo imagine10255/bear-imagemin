@@ -37,10 +37,10 @@ async function losslessSquash (sourceFile: string, options: {
     // 壓縮
     bufferData = await imagemin.buffer(bufferData, {
         plugins: [
-            imageminJpegtran(),
-            imageminWebp({
-                lossless: true,
-            }),
+            // imageminJpegtran(),
+            // imageminWebp({
+            //     lossless: true,
+            // }),
             imageminOptipng()
         ]
     });
