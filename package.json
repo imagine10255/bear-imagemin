@@ -1,6 +1,6 @@
 {
   "name": "bear-node-imagemin",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Common tools and methods for project development",
   "keywords": [
     "typescript",
