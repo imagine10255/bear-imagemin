@@ -14,7 +14,9 @@ interface IArgs {
 
 async function run(args: IArgs) {
     const {sourceFile, saveFile, width, height} = args;
-    const res = await losslessSquash(sourceFile, {
+    let bufferData = fs.readFileSync(sourceFile);
+
+    const res = await losslessSquash(bufferData, {
         resize: {width, height}
     });
 

@@ -3,27 +3,24 @@ import imageminJpegtran from 'imagemin-jpegtran';
 import imageminOptipng from 'imagemin-optipng';
 import imageminWebp from 'imagemin-webp';
 import sharp from 'sharp';
-import fs from 'fs';
+import * as Buffer from 'buffer';
 
 
 /**
- * 無傷壓縮
+ * 無損壓縮
  * losslessSquash-jpegtran https://github.com/imagemin/imagemin-jpegtran
  * losslessSquash-pngquant https://github.com/imagemin/imagemin-optipng
  *
- * @param sourceFile
+ * @param bufferData
  * @param options
  */
-async function losslessSquash (sourceFile: string, options: {
+async function losslessSquash (bufferData: Buffer, options: {
     resize?: {
         width?: number,
         height?: number,
         ignoreOverflowSize?: boolean, // 是否忽略 目標尺寸 大於 目前尺寸, 變成放大
     },
 }){
-    // 原圖
-    let bufferData = fs.readFileSync(sourceFile);
-
     // 縮圖
     const resize = options?.resize;
 

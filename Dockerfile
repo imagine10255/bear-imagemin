@@ -8,11 +8,13 @@ RUN apk add --update --no-cache \
   libtool \
   nasm \
   libjpeg-turbo-dev
-#RUN apk update && apk add bash
 COPY package.json yarn.lock ./
-RUN yarn install --prod --frozen-lockfile
+RUN awk '/},/ { p = 0 } { if (!p) { print $0 } } /"devDependencies":/ { p = 1 }' package.json > package.json.tmp && mv package.json.tmp package.json && yarn install --prod --frozen-lockfile
 COPY . .
+
+# unzip imagemin-optipng && imagemin-pngquant && pngquant-bin
+RUN unzip ./pkg/png-modules.zip -d node_modules && unzip ./pkg/png-modules-type -d node_modules/@types
 RUN yarn build
 
 EXPOSE 8080
-CMD ["node", "--max_old_space_size=2048", "dist/bear-node-imagemin.js"]
+CMD ["node", "--max_old_space_size=2048", "dist/server.js"]
