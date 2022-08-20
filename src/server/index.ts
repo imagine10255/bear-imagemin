@@ -2,6 +2,7 @@ import express from 'express';
 import fileUpload from 'express-fileupload';
 
 import lossySquash from '../lossySquash';
+import losslessSquash from '../losslessSquash';
 
 
 interface IContentTypeMap {
@@ -89,7 +90,7 @@ app.post('/losslessSquash', async function(req, res) {
 
 
 
-    const newBuff  = await lossySquash(buff, params);
+    const newBuff  = await losslessSquash(buff, params);
     const contentType = contentTypeMap[extname];
 
     res.writeHead(200, {

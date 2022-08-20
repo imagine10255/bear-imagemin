@@ -1,7 +1,9 @@
 import imagemin, {Plugin} from 'imagemin';
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import imageminWebp from 'imagemin-webp';
-import imageminPngquant from './plugins/imageminPngquant';
+// import imageminPngquant from './plugins/imageminPngquant';
+import imageminPngquant from 'imagemin-pngquant';
+
 import sharp from 'sharp';
 
 interface IPlugMap {
@@ -43,7 +45,7 @@ async function lossySquash(bufferData: Buffer, options?: {
     // 0 - 100 (100 有時會超過原圖大小)
     const extPluginsMap: IPlugMap = {
         jpg: [imageminMozjpeg({quality: quality})],
-        png: [imageminPngquant({quality: quality})],
+        png: [imageminPngquant({quality: [0, .8]})],
         webp: [imageminWebp({
             quality: quality, // 0 - 100 (100 有時會超過原圖大小)
             lossless: false,
