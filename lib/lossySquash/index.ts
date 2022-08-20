@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import logger from '../script/logger';
 import {bash} from '../script/utils';
 import lossySquash from '../../src/lossySquash';
+import path = require('path');
 
 
 interface IArgs {
@@ -15,7 +16,13 @@ interface IArgs {
 
 async function run(args: IArgs) {
     const {sourceFile, saveFile, quality, width, height} = args;
-    const res = await lossySquash(sourceFile, {
+
+    const bufferData = fs.readFileSync(sourceFile);
+
+    const extname = path.extname(saveFile);
+
+    const res = await lossySquash(bufferData, {
+        extname,
         quality,
         resize: {width, height},
     });

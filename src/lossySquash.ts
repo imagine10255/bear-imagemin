@@ -1,20 +1,24 @@
-import imagemin from 'imagemin';
+import imagemin, {Plugin} from 'imagemin';
 import imageminMozjpeg from 'imagemin-mozjpeg';
-import imageminPngquant from 'imagemin-pngquant';
 import imageminWebp from 'imagemin-webp';
-import sharp from 'sharp';
-import * as fs from 'fs';
+import imageminPngquant from 'imagemin-pngquant';
 
+import sharp from 'sharp';
+
+interface IPlugMap {
+    [types: string]: Plugin[],
+}
 
 /**
- * 有損傷壓縮
+ * 有損壓縮
  * losslessSquash-mozjpeg https://github.com/imagemin/imagemin-mozjpeg
  * losslessSquash-pngquant https://github.com/imagemin/imagemin-pngquant
  *
- * @param sourceFile
+ * @param bufferData
  * @param options
  */
-async function lossySquash (sourceFile: string, options?: {
+async function lossySquash(bufferData: Buffer, options?: {
+    extname?: string,
     quality?: number, // 1 - 100
     resize?: {
         width?: number,
@@ -22,11 +26,7 @@ async function lossySquash (sourceFile: string, options?: {
         ignoreOverflowSize?: boolean, // 是否忽略 目標尺寸 大於 目前尺寸, 變成放大
     },
 }){
-    let quality = options?.quality ?? .75;
-    quality = quality > .9 ? .9: quality;
-
-    // 原圖
-    let bufferData = fs.readFileSync(sourceFile);
+    const quality = options?.quality ?? 75;
 
     // 縮圖
     const resize = options?.resize;
@@ -37,24 +37,24 @@ async function lossySquash (sourceFile: string, options?: {
             .toBuffer();
     }
 
-    // 壓縮
-    bufferData = await imagemin.buffer(bufferData, {
-        plugins: [
-            imageminMozjpeg({
-                quality: quality * 100, // 0 - 100 (100 有時會超過原圖大小)
-            }),
-            imageminWebp({
-                quality: quality * 100, // 0 - 100 (100 有時會超過原圖大小)
-                lossless: false,
-                preset: 'picture',
-            }),
-            imageminPngquant({
-                quality: [0.1, quality],    // [0, 1]
-                posterize: 4,
-            }),
-        ]
-    });
+    const formatExtname = options?.extname ?? '.webp'
+        .replace('.','')
+        .replace('jpeg','jpg');
 
+    // 0 - 100 (100 有時會超過原圖大小)
+    const extPluginsMap: IPlugMap = {
+        jpg: [imageminMozjpeg({quality: quality})],
+        png: [imageminPngquant({quality: [0, .8]})],
+        webp: [imageminWebp({
+            quality: quality, // 0 - 100 (100 有時會超過原圖大小)
+            lossless: false,
+            preset: 'picture',
+        })]
+    };
+    const plugins = extPluginsMap[formatExtname];
+
+    // 壓縮
+    bufferData = await imagemin.buffer(bufferData, {plugins});
 
     return bufferData;
 }
