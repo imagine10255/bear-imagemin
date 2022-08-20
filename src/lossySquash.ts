@@ -1,7 +1,6 @@
 import imagemin, {Plugin} from 'imagemin';
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import imageminWebp from 'imagemin-webp';
-// import imageminPngquant from './plugins/imageminPngquant';
 import imageminPngquant from 'imagemin-pngquant';
 
 import sharp from 'sharp';
