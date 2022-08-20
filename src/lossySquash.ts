@@ -1,7 +1,7 @@
 import imagemin, {Plugin} from 'imagemin';
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import imageminWebp from 'imagemin-webp';
-import imageminPngquant from './png';
+import imageminPngquant from './plugins/imageminPngquant';
 import sharp from 'sharp';
 
 interface IPlugMap {

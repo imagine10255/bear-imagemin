@@ -1,7 +1,7 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
 
-import lossySquash from './lossySquash';
+import lossySquash from '../lossySquash';
 
 
 const app = express();
@@ -20,6 +20,7 @@ app.post('/lossySquash', async function(req, res) {
     const resizeHeight = req.body?.resizeHeight;
     const reqQuality = req.body?.quality;
     const ignoreOverflowSize = req.body?.ignoreOverflowSize;
+    const extname = req.body?.extname;
     const isDebug = req.body?.isDebug;
 
 
@@ -72,7 +73,8 @@ app.post('/lossySquash', async function(req, res) {
 
     const params = {
         quality: quality,
-        resize: {width, height, ignoreOverflowSize}
+        resize: {width, height, ignoreOverflowSize},
+        extname,
     };
 
     if(isDebug) console.log('params', params);

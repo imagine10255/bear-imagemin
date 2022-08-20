@@ -1,7 +1,7 @@
-const pngquant = require('./pngquant.min');
+const pngquant = require('./vendor/pngquant.min');
 
 
-const imageminPngquant = (options?: { quality?: number }) => (input: Buffer): Promise<Buffer> => {
+const index = (options?: { quality?: number }) => (input: Buffer): Promise<Buffer> => {
     return new Promise((resolve, reject) => {
         try {
             const _options = {
@@ -15,4 +15,4 @@ const imageminPngquant = (options?: { quality?: number }) => (input: Buffer): Pr
     });
 };
 
-export default imageminPngquant;
+export default index;
