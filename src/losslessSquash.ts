@@ -1,9 +1,13 @@
-import imagemin from 'imagemin';
+import imagemin, {Plugin} from 'imagemin';
 import imageminJpegtran from 'imagemin-jpegtran';
-// import imageminOptipng from 'imagemin-optipng';
+import imageminOptipng from 'imagemin-optipng';
 import imageminWebp from 'imagemin-webp';
 import sharp from 'sharp';
-import * as Buffer from 'buffer';
+
+
+interface IPlugMap {
+    [types: string]: Plugin[],
+}
 
 
 /**
@@ -15,6 +19,7 @@ import * as Buffer from 'buffer';
  * @param options
  */
 async function losslessSquash (bufferData: Buffer, options: {
+    extname?: string,
     resize?: {
         width?: number,
         height?: number,
@@ -31,16 +36,20 @@ async function losslessSquash (bufferData: Buffer, options: {
             .toBuffer();
     }
 
+    const formatExtname = options?.extname ?? '.webp'
+        .replace('.','')
+        .replace('jpeg','jpg');
+
+    // 0 - 100 (100 有時會超過原圖大小)
+    const extPluginsMap: IPlugMap = {
+        jpg: [imageminJpegtran()],
+        png: [imageminOptipng()],
+        webp: [imageminWebp()]
+    };
+    const plugins = extPluginsMap[formatExtname];
+
     // 壓縮
-    bufferData = await imagemin.buffer(bufferData, {
-        plugins: [
-            // imageminJpegtran(),
-            imageminWebp({
-                lossless: true,
-            }),
-            // imageminOptipng()
-        ]
-    });
+    bufferData = await imagemin.buffer(bufferData, {plugins});
 
     return bufferData;
 }
