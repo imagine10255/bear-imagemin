@@ -31,19 +31,26 @@ client.squash('/tmp/fromPath', '/tmp/savePath', {
 })
 ```
 
-PS: `$version` change current number (ex: 1.0.8)
 
 
-## API Params
+## Options
 
-- post body
-  - sourceFile: File
-  - resizeWidth: number
-  - resizeHeight: number
-  - quality: number
-  - ignoreOverflowSize: boolean
-  - extname: '.jpg'|'.png'|'.webp'
-  - isDebug: boolean
+
+name    | type               | required | default |
+-------------|--------------------|----------|---------|
+quality   | number             |
+ignoreOverflowSize   | boolean            |          | true
+extname   | .jpg, .png, .webp' |          | .webp   |
+reszie   |  |          |   |
+
+
+resize
+
+name    | type               | required | default | 
+-------------|--------------------|----------|---------|
+width   | number             |
+height   | number             |
+
 
 
 ## License

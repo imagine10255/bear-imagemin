@@ -41,14 +41,48 @@ PS: `$version` change current number (ex: 1.0.8)
 
 ## API Params
 
-- post body
-  - sourceFile: File
-  - resizeWidth: number
-  - resizeHeight: number
-  - quality: number
-  - ignoreOverflowSize: boolean
-  - extname: '.jpg'|'.png'|'.webp'
-  - isDebug: boolean
+post body
+
+body name    | type               | required | default | 
+-------------|--------------------|----------|---------|
+sourceFile   | Buffer             | ✓        | 
+resizeWidth   | number             |
+resizeHeight   | number       |
+quality   | number             |
+ignoreOverflowSize   | boolean     |          | true     
+extname   | .jpg, .png, .webp' |          | .webp   |
+
+## Use Code
+
+```typescript
+import * as FormData from 'form-data';
+
+const data = new FormData();
+data.append('sourceFile', fs.createReadStream('/tmp/file.webp'));
+data.append('extname', '.webp');
+
+
+const api = apisauce.create({baseURL: 'http://localhost:3001'});
+  return api.post<Stream>('/api/squash', data, {
+      headers: {
+          ...data.getHeaders(),
+      },
+      responseType: 'stream',
+  }).then(res => {
+      return new Promise<string>((resolve, reject) => {
+          if(!res.data){
+              reject('error! response data is null');
+              return;
+          }
+          return res.data
+              .pipe(fs.createWriteStream(savePath))
+              .on('finish', () => resolve(savePath))
+              .on('error', e => reject(e));
+      });
+  });
+```
+
+or your can `yarn install bear-imagemin-client`
 
 
 ## License
