@@ -4,6 +4,7 @@ import imageminWebp from 'imagemin-webp';
 import imageminPngquant from 'imagemin-pngquant';
 
 import sharp from 'sharp';
+import {TLossySquash} from './typings';
 
 interface IPlugMap {
     [types: string]: Plugin[],
@@ -17,15 +18,7 @@ interface IPlugMap {
  * @param bufferData
  * @param options
  */
-async function lossySquash(bufferData: Buffer, options?: {
-    extname?: string,
-    quality?: number, // 1 - 100
-    resize?: {
-        width?: number,
-        height?: number
-        ignoreOverflowSize?: boolean, // 是否忽略 目標尺寸 大於 目前尺寸, 變成放大
-    },
-}){
+const lossySquash: TLossySquash = async (bufferData, options) => {
     const quality = options?.quality ?? 75;
 
     // 縮圖
@@ -46,7 +39,7 @@ async function lossySquash(bufferData: Buffer, options?: {
         jpg: [imageminMozjpeg({quality: quality})],
         png: [imageminPngquant({quality: [0, .8]})],
         webp: [imageminWebp({
-            quality: quality, // 0 - 100 (100 有時會超過原圖大小)
+            quality: quality,
             lossless: false,
             preset: 'picture',
         })]
@@ -57,7 +50,7 @@ async function lossySquash(bufferData: Buffer, options?: {
     bufferData = await imagemin.buffer(bufferData, {plugins});
 
     return bufferData;
-}
+};
 
 
 export default lossySquash;

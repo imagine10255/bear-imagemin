@@ -3,6 +3,7 @@ import imageminJpegtran from 'imagemin-jpegtran';
 import imageminOptipng from 'imagemin-optipng';
 import imageminWebp from 'imagemin-webp';
 import sharp from 'sharp';
+import {TLosslessSquash} from './typings';
 
 
 interface IPlugMap {
@@ -18,14 +19,7 @@ interface IPlugMap {
  * @param bufferData
  * @param options
  */
-async function losslessSquash (bufferData: Buffer, options: {
-    extname?: string,
-    resize?: {
-        width?: number,
-        height?: number,
-        ignoreOverflowSize?: boolean, // 是否忽略 目標尺寸 大於 目前尺寸, 變成放大
-    },
-}){
+const losslessSquash: TLosslessSquash = async (bufferData, options) => {
     // 縮圖
     const resize = options?.resize;
 
@@ -40,11 +34,13 @@ async function losslessSquash (bufferData: Buffer, options: {
         .replace('.','')
         .replace('jpeg','jpg');
 
-    // 0 - 100 (100 有時會超過原圖大小)
     const extPluginsMap: IPlugMap = {
         jpg: [imageminJpegtran()],
         png: [imageminOptipng()],
-        webp: [imageminWebp()]
+        webp: [imageminWebp({
+            lossless: true,
+            preset: 'picture'
+        })]
     };
     const plugins = extPluginsMap[formatExtname];
 
@@ -52,7 +48,7 @@ async function losslessSquash (bufferData: Buffer, options: {
     bufferData = await imagemin.buffer(bufferData, {plugins});
 
     return bufferData;
-}
+};
 
 
 export default losslessSquash;
