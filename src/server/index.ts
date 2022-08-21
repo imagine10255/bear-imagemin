@@ -20,14 +20,14 @@ const app = express();
 app.use(fileUpload());
 
 app.get('/', function(req, res) {
-    res.send('Hello World! (ex: /losslessSquash or /lossySquash)');
+    res.send('bear-imagemin-api! (ex: /api/losslessSquash or /api/lossySquash)');
 });
 
 
 /**
  * 無損壓縮
  */
-app.post('/losslessSquash', async function(req, res) {
+app.post('/api/losslessSquash', async function(req, res) {
 
     // @ts-ignore
     const buff = req.files?.sourceFile?.data;
@@ -105,7 +105,7 @@ app.post('/losslessSquash', async function(req, res) {
 /**
  * 有損壓縮
  */
-app.post('/lossySquash', async function(req, res) {
+app.post('/api/lossySquash', async function(req, res) {
 
     // @ts-ignore
     const buff = req.files?.sourceFile?.data;
