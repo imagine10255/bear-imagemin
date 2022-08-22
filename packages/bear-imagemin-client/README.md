@@ -21,7 +21,7 @@ yarn add -D bear-imagemin-client
 ## Use
 
 ```typescript
-import BearImageminClient from 'bear-imagemin-client';
+import {BearImageminClient} from 'bear-imagemin-client';
 
 const client = new BearImageminClient('http://imageSquash:3000');
 client.squash('/tmp/fromPath', '/tmp/savePath', {
