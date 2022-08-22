@@ -1,6 +1,6 @@
 {
   "name": "bear-imagemin-client",
-  "version": "0.0.6-alpha.1",
+  "version": "0.0.6",
   "description": "Common tools and methods for project development",
   "keywords": [
     "typescript",
@@ -14,7 +14,6 @@
     "url": "https://github.com/imagine10255/bear-node-imagemin.git"
   },
   "main": "dist/bear-imagemin-client.js",
-  "module": "dist/bear-imagemin-client.modern.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist"

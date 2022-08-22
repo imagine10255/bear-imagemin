@@ -1,7 +1,7 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import bodyParser from 'body-parser';
-import bearImageminClient from 'bear-imagemin-client';
+import {BearImageminClient} from 'bear-imagemin-client';
 import {handleError, handleUncaughtExceptionOrRejection} from './utils';
 import { join } from 'path';
 
@@ -14,7 +14,7 @@ app.use(handleError);
 
 
 app.get('/', async function(req, res) {
-    const imageAp = new bearImageminClient('http://localhost:3002');
+    const imageAp = new BearImageminClient('http://localhost:3001');
 
     const filePath = join(__dirname, '../../../../example/static/source.png');
     const toPath = join(__dirname, '../../../../example/static/lossySquash/test_1.png');

@@ -2,10 +2,10 @@
   "compilerOptions": {
     "outDir": "dist",
     "target": "es6",
-    "module": "ES2015",
+    "module": "commonjs",
     "strict": true,
     "sourceMap": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "resolveJsonModule": false,
     "moduleResolution": "node"
   },
