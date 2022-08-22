@@ -6,8 +6,7 @@
     "strict": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "resolveJsonModule": false,
-    "moduleResolution": "node"
+    "resolveJsonModule": false
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "example"]

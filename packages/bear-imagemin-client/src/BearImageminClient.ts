@@ -1,14 +1,15 @@
 import * as fs from 'fs';
 import {Stream} from 'stream';
 import * as apisauce from 'apisauce';
-import * as FormData from 'form-data';
 import {IBearImageminClient} from './typings';
+
+const FormData = require('form-data');
 
 /**
  * BearImageminClient
  * 圖片壓縮客戶端
  */
-class BearImageminClient implements IBearImageminClient{
+export default class BearImageminClient implements IBearImageminClient{
     protected _baseUrl = 'http://localehost:3001';
 
     constructor(baseUrl?: string) {
@@ -59,9 +60,22 @@ class BearImageminClient implements IBearImageminClient{
             },
             responseType: 'stream',
         }).then(res => {
+
             return new Promise<string>((resolve, reject) => {
-                if(!res.data){
-                    reject('error! response data is null');
+                if(!res.ok){
+                    reject({
+                        status: res.status,
+                        code: res.problem,
+                        message: `error! problem is ${res.problem}`
+                    });
+                    return;
+
+                }else if(!res.data){
+                    reject({
+                        status: res.status,
+                        code: res.problem,
+                        message: 'error! response data is null',
+                    });
                     return;
                 }
                 return res.data
@@ -74,5 +88,3 @@ class BearImageminClient implements IBearImageminClient{
 
 }
 
-
-export default BearImageminClient;

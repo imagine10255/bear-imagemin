@@ -1,7 +1,7 @@
 {
   "name": "bear-imagemin-api",
   "private": true,
-  "version": "0.0.5",
+  "version": "0.0.6-aplha.3",
   "description": "Common tools and methods for project development",
   "keywords": [
     "typescript",

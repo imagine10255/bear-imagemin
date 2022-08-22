@@ -15,9 +15,9 @@ libxi \
 libpng-dev \
 libjpeg \
 jpeg-dev
-COPY package.json yarn.lock ./
+COPY ../../package.json yarn.lock ./
 RUN awk '/},/ { p = 0 } { if (!p) { print $0 } } /"devDependencies":/ { p = 1 }' package.json > package.json.tmp && mv package.json.tmp package.json && yarn install --prod --frozen-lockfile
-COPY . .
+COPY ../.. .
 
 RUN yarn build
 

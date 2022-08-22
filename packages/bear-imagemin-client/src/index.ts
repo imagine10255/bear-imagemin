@@ -1,1 +1,1 @@
-export {default} from './BearImageminClient';
+export {default as BearImageminClient} from './BearImageminClient';
