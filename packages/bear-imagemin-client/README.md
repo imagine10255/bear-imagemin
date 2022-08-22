@@ -7,9 +7,9 @@
 
 ## Support Version Map
 
-Api Docker Image | BearImageminClient node package  | 
-------------------|---------------------------------:|
-0.0.4             |                            0.0.4 |
+Api Docker Image | BearImageminClient node package | 
+------------------|--------------------------------:|
+0.0.5             |                           0.0.5 |
 
 
 ## Install

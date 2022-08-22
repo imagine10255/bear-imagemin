@@ -1,7 +1,7 @@
-import express from 'express';
+import express,{ErrorRequestHandler} from 'express';
 import fileUpload from 'express-fileupload';
+import bodyParser from 'body-parser';
 import {lossySquash, losslessSquash} from 'bear-node-imagemin';
-
 
 interface IContentTypeMap {
     [types: string]: string,
@@ -14,8 +14,45 @@ const contentTypeMap: IContentTypeMap = {
 };
 
 
+export class CustomError {
+    message!: string;
+    status!: number;
+    additionalInfo!: any;
+
+    constructor(message: string, status: number = 500, additionalInfo: any = {}) {
+        this.message = message;
+        this.status = status;
+        this.additionalInfo = additionalInfo
+    }
+}
+
+const handleError: ErrorRequestHandler = (err, req, res, next) => {
+    let customError = err;
+
+    if (!(err instanceof CustomError)) {
+        customError = new CustomError(
+            'Oh no, this is embarrasing. We are having troubles my friend',
+            500,
+            err
+        );
+    }
+
+    // we are not using the next function to prvent from triggering
+    // the default error-handler. However, make sure you are sending a
+    // response to client to prevent memory leaks in case you decide to
+    // NOT use, like in this example, the NextFunction .i.e., next(new Error())
+    res.status((customError as CustomError).status).send(customError);
+};
+
+
 const app = express();
 app.use(fileUpload());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// not crashes when error is detected
+process.on('uncaughtException', err => {})
 
 app.get('/', function(req, res) {
     res.send('bear-imagemin-api! (ex: /api/losslessSquash or /api/lossySquash)');
@@ -27,7 +64,7 @@ app.get('/', function(req, res) {
  * 壓縮
  * 有設定 品質則會是有損壓縮, 預設為無損
  */
-app.post('/api/squash', async function(req, res) {
+app.post('/api/squash', async function(req, res, next) {
 
     // @ts-ignore
     const buff = req.files?.sourceFile?.data;
@@ -47,7 +84,7 @@ app.post('/api/squash', async function(req, res) {
     if(resizeWidth !== undefined && resizeWidth !== ''){
         width = Number(resizeWidth);
 
-        if(width <= 0){
+        if(Number.isNaN(width) ||width <= 0){
             res.status(400).json({
                 message: 'resizeWidth need > 0',
             });
@@ -59,7 +96,7 @@ app.post('/api/squash', async function(req, res) {
     if(resizeHeight !== undefined && resizeHeight !== ''){
         height = Number(resizeHeight);
 
-        if(height <= 0){
+        if(Number.isNaN(height) || height <= 0){
             res.status(400).json({
                 message: 'resizeHeight need > 0',
             });
@@ -71,7 +108,7 @@ app.post('/api/squash', async function(req, res) {
     if(reqQuality !== undefined && reqQuality !== ''){
 
         quality = Number(reqQuality);
-        if(!(quality >= 10 && quality <= 100)){
+        if(Number.isNaN(quality) || !(quality >= 10 && quality <= 100)){
             res.status(400).json({
                 message: 'quality need 10 ~ 100',
             });
@@ -119,6 +156,8 @@ app.post('/api/squash', async function(req, res) {
 
 });
 
+
+app.use(handleError);
 
 app.listen(3000, function() {
     console.log('imagemin app listening on port 3000!');
