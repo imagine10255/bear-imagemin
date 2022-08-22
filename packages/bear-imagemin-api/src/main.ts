@@ -1,63 +1,22 @@
-import express,{ErrorRequestHandler} from 'express';
+import express from 'express';
 import fileUpload from 'express-fileupload';
 import bodyParser from 'body-parser';
 import {lossySquash, losslessSquash} from 'bear-node-imagemin';
+import {contentTypeMap} from './config';
+import {handleError, handleUncaughtExceptionOrRejection} from './utils';
 
-interface IContentTypeMap {
-    [types: string]: string,
-}
-
-const contentTypeMap: IContentTypeMap = {
-    jpg: 'image/jpg',
-    png: 'image/png',
-    webp: 'image/webp',
-};
-
-
-export class CustomError {
-    message!: string;
-    status!: number;
-    additionalInfo!: any;
-
-    constructor(message: string, status: number = 500, additionalInfo: any = {}) {
-        this.message = message;
-        this.status = status;
-        this.additionalInfo = additionalInfo
-    }
-}
-
-const handleError: ErrorRequestHandler = (err, req, res, next) => {
-    let customError = err;
-
-    if (!(err instanceof CustomError)) {
-        customError = new CustomError(
-            'Oh no, this is embarrasing. We are having troubles my friend',
-            500,
-            err
-        );
-    }
-
-    // we are not using the next function to prvent from triggering
-    // the default error-handler. However, make sure you are sending a
-    // response to client to prevent memory leaks in case you decide to
-    // NOT use, like in this example, the NextFunction .i.e., next(new Error())
-    res.status((customError as CustomError).status).send(customError);
-};
 
 
 const app = express();
 app.use(fileUpload());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(handleError);
 
-
-// not crashes when error is detected
-process.on('uncaughtException', err => {})
 
 app.get('/', function(req, res) {
     res.send('bear-imagemin-api! (ex: /api/losslessSquash or /api/lossySquash)');
 });
-
 
 
 /**
@@ -143,22 +102,35 @@ app.post('/api/squash', async function(req, res, next) {
     console.log('squash', JSON.stringify(params));
 
     // 品質低於100 或是無設定為 無損
-    const newBuff = isLossLess ?
-        await losslessSquash(buff, params):
-        await lossySquash(buff, params);
+    try {
+        const newBuff = isLossLess ?
+            await losslessSquash(buff, params):
+            await lossySquash(buff, params);
 
-    const contentType = contentTypeMap[extname];
-    res.writeHead(200, {
-        'Content-Type': contentType,
-        'Content-Disposition': 'attachment; filename=' + `image.${extname}`,
-    });
-    res.end(newBuff);
+        const contentType = contentTypeMap[extname];
+        res.writeHead(200, {
+            'Content-Type': contentType,
+            'Content-Disposition': 'attachment; filename=' + `image.${extname}`,
+        });
+        res.end(newBuff);
+        return;
+
+    }catch (e){
+        res.status(500).json({
+            message: e,
+        });
+        return;
+    }
+
 
 });
 
 
-app.use(handleError);
 
-app.listen(3000, function() {
+
+const server = app.listen(3000, function() {
     console.log('imagemin app listening on port 3000!');
 });
+
+process.on('unhandledRejection', (err: any) => handleUncaughtExceptionOrRejection(err, server));
+process.on('uncaughtException', (err) => handleUncaughtExceptionOrRejection(err, server))

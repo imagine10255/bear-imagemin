@@ -2,12 +2,11 @@
   "compilerOptions": {
     "outDir": "dist",
     "target": "es6",
-    "module": "ES2015",
+    "module": "commonjs",
     "strict": true,
     "sourceMap": true,
-    "esModuleInterop": false,
-    "resolveJsonModule": false,
-    "moduleResolution": "node"
+    "esModuleInterop": true,
+    "resolveJsonModule": false
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist", "example"]
