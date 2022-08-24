@@ -1168,10 +1168,10 @@ base64-js@^1.3.1:
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
 
-bear-node-imagemin@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/bear-node-imagemin/-/bear-node-imagemin-1.0.0.tgz#ab1bb238fa924632124ea4a2a4b195f683e3f882"
-  integrity sha512-RIYqgtmJcQZdKngCVAEF3PVdvqYIWSG5AQo6EUiuQNoGX+F2Z2l38RBXpdvv6hRmGlfizQYhrs6C194R3nNgPg==
+bear-node-imagemin@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/bear-node-imagemin/-/bear-node-imagemin-1.0.1.tgz#ba42330768572d4dbcb88b7c2b684da46fcd2cfa"
+  integrity sha512-CED9IKIZfLbNA/Hpcvo+uqLlFu5BZyJjpGrpM4YLXn9Mz2o63GNg3VvLAyzoGWtmrVnfBHAjr1p+p7I24FcK6g==
   dependencies:
     imagemin "7.0.1"
     imagemin-jpegtran "^7.0.0"
