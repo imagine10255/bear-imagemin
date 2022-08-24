@@ -21,7 +21,7 @@ yarn add -D bear-node-imagemin
 import {lossySquash, losslessSquash} from 'bear-node-imagemin';
 
 const isLossLess = false;
-const sourceFile = './example/source.png';
+const sourceFile = './example/static/source.png';
 
 const params = {
   quality: isLossLess ? undefined: quality,
@@ -35,7 +35,7 @@ const newBuff = isLossLess ?
         await losslessSquash(buff, params): // is lossLess
         await lossySquash(buff, params); // is lossy
 
-fs.writeFileSync('./example/lossySquash/image_1024.png', newBuff);
+fs.writeFileSync('./example/static/lossySquash/image_1024.png', newBuff);
 ```
 
 

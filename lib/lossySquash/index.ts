@@ -3,6 +3,7 @@ import logger from '../script/logger';
 import {bash} from '../script/utils';
 import lossySquash from '../../src/lossySquash';
 import path = require('path');
+import {join} from 'path';
 
 
 interface IArgs {

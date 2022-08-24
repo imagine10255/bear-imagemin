@@ -26,7 +26,7 @@
     "build": "run-s build:claer && tsc --project ./tsconfig.build.json",
     "build:claer": "rm -rf ./dist",
     "prepublishOnly": "run-s build",
-    "image:lossySquash": "bear-node-imagemin lossySquash --sourceFile=./example/source.png --saveFile=./example/lossySquash/image_1024.png --with=width",
+    "image:lossySquash": "bear-node-imagemin lossySquash --sourceFile=./example/static/source.png --saveFile=./example/static/lossySquash/image_1024.png --with=100",
     "test": "jest --coverage",
     "gitlog": "git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblueby %an %Cgreen(%cr)%Creset'",
     "lint:fix": "eslint ./lib/*.ts --fix"
@@ -37,7 +37,7 @@
     "@types/method-override": "^0.0.32",
     "@types/node": "18.0.0",
     "apisauce": "^2.1.5",
-    "bear-node-imagemin": "1.0.1",
+    "bear-node-imagemin": "1.0.2",
     "express": "^4.18.1",
     "express-fileupload": "^1.4.0",
     "method-override": "^3.0.0",
