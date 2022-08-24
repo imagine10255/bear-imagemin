@@ -15,6 +15,42 @@
 yarn add -D bear-node-imagemin
 ```
 
+
+## Use
+```typescript
+import {lossySquash, losslessSquash} from 'bear-node-imagemin';
+
+const isLossLess = false;
+const sourceFile = './example/source.png';
+
+const params = {
+  quality: isLossLess ? undefined: quality,
+  resize: {width: 200, height: 200, ignoreOverflowSize: true},
+  extname: '.webp',
+};
+
+// file to buff
+const bufferData = fs.readFileSync(sourceFile);
+const newBuff = isLossLess ?
+        await losslessSquash(buff, params): // is lossLess
+        await lossySquash(buff, params); // is lossy
+
+fs.writeFileSync('./example/lossySquash/image_1024.png', newBuff);
+```
+
+
+## Cli
+in your package.json
+```json
+{
+  "scripts": {
+    "image:lossySquash": "bear-node-imagemin lossySquash --sourceFile=./example/source.png --saveFile=./example/lossySquash/image_1024.png --with=width"
+  }
+}
+
+# then run `yarn image:lossySquash`
+```
+
 ## Document
 
 - [use-imagemin-to-compress-images](https://web.dev/i18n/zh/use-imagemin-to-compress-images/)
