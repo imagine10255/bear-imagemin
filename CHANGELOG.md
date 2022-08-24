@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3-alpha.0](https://github.com/imagine10255/bear-node-imagemin/compare/v1.0.2...v1.0.3-alpha.0) (2022-08-24)
+
+
+### Bug Fixes
+
+* fix bin/cli path, modify to ts ([0f23185](https://github.com/imagine10255/bear-node-imagemin/commit/0f23185b114d83bb2b85a59a1fbb8256e455a1d7))
+
 ### [1.0.2](https://github.com/imagine10255/bear-node-imagemin/compare/v1.0.1...v1.0.2) (2022-08-24)
 
 
