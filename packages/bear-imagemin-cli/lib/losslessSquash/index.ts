@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import logger from '../script/logger';
 import {bash} from '../script/utils';
-import losslessSquash from '../../src/losslessSquash';
+import {losslessSquash} from 'bear-node-imagemin';
 
 
 interface IArgs {
@@ -14,7 +14,7 @@ interface IArgs {
 
 async function run(args: IArgs) {
     const {sourceFile, saveFile, width, height} = args;
-    let bufferData = fs.readFileSync(sourceFile);
+    const bufferData = fs.readFileSync(sourceFile);
 
     const res = await losslessSquash(bufferData, {
         resize: {width, height}

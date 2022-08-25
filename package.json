@@ -19,9 +19,7 @@
   "types": "dist/index.d.ts",
   "bin": "bin/cli.js",
   "files": [
-    "dist",
-    "dist/bin",
-    "node_modules"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -32,7 +30,7 @@
     "prepublishOnly": "run-s build",
     "test": "jest --coverage",
     "gitlog": "git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblueby %an %Cgreen(%cr)%Creset'",
-    "lint:fix": "eslint ./lib/*.ts --fix",
+    "lint:fix": "eslint ./src/*.ts --fix",
     "cz": "git cz",
     "release": "standard-version --release-as",
     "release:major": "standard-version -r major",

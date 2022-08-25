@@ -1,9 +1,8 @@
 import * as fs from 'fs';
 import logger from '../script/logger';
 import {bash} from '../script/utils';
-import lossySquash from '../../src/lossySquash';
+import {lossySquash} from 'bear-node-imagemin';
 import path = require('path');
-import {join} from 'path';
 
 
 interface IArgs {

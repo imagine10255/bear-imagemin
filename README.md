@@ -32,24 +32,13 @@ const params = {
 // file to buff
 const bufferData = fs.readFileSync(sourceFile);
 const newBuff = isLossLess ?
-        await losslessSquash(buff, params): // is lossLess
-        await lossySquash(buff, params); // is lossy
+        await losslessSquash(bufferData, params): // is lossLess
+        await lossySquash(bufferData, params); // is lossy
 
 fs.writeFileSync('./example/static/lossySquash/image_1024.png', newBuff);
 ```
 
 
-## Cli
-in your package.json
-```json
-{
-  "scripts": {
-    "image:lossySquash": "bear-node-imagemin lossySquash --sourceFile=./example/source.png --saveFile=./example/lossySquash/image_1024.png --with=width"
-  }
-}
-
-# then run `yarn image:lossySquash`
-```
 
 ## Document
 

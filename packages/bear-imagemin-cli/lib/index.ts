@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import yargs from 'yargs/yargs';
 import {hideBin} from 'yargs/helpers';
-import run from './lossySquash';
 
 module.exports = async function bearScript () {
     yargs(hideBin(process.argv))

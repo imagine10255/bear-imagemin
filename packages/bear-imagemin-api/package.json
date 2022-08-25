@@ -26,7 +26,6 @@
     "build": "run-s build:claer && tsc --project ./tsconfig.build.json",
     "build:claer": "rm -rf ./dist",
     "prepublishOnly": "run-s build",
-    "image:lossySquash": "bear-node-imagemin lossySquash --sourceFile=./example/static/source.png --saveFile=./example/static/lossySquash/image_1024.png --with=100",
     "test": "jest --coverage",
     "gitlog": "git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cblueby %an %Cgreen(%cr)%Creset'",
     "lint:fix": "eslint ./lib/*.ts --fix"
