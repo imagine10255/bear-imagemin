@@ -1,6 +1,6 @@
 {
   "name": "bear-imagemin-client",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Common tools and methods for project development",
   "keywords": [
     "typescript",
@@ -32,7 +32,7 @@
     "lint:fix": "eslint ./lib/*.ts --fix"
   },
   "dependencies": {
-    "apisauce": "^2.1.5"
+    "axios": "^0.27.2"
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
