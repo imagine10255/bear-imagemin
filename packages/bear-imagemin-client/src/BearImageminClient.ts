@@ -1,7 +1,6 @@
 import * as fs from 'fs';
-import {Stream} from 'stream';
-import * as apisauce from 'apisauce';
 import {IBearImageminClient} from './typings';
+import {apiService, requestHeader} from './api';
 
 const FormData = require('form-data');
 
@@ -53,37 +52,42 @@ export default class BearImageminClient implements IBearImageminClient{
             data.append('extname', options.extname);
         }
 
-        const api = apisauce.create({baseURL: this._baseUrl});
-        return api.post<Stream>('/api/squash', data, {
-            headers: {
-                ...data.getHeaders(),
-            },
-            responseType: 'stream',
-        }).then(res => {
+        return new Promise<string>((resolve, reject) => {
 
-            return new Promise<string>((resolve, reject) => {
-                if(!res.ok){
-                    reject({
-                        status: res.status,
-                        code: res.problem,
-                        message: `error! problem is ${res.problem}`
-                    });
-                    return;
+            apiService.post(`${this._baseUrl}/api/squash`, data, {
+                headers: {
+                    ...requestHeader.formData,
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                responseType: 'stream',
+                timeout: 5 * 60 * 1000
+            })
+            .then(res => {
 
-                }else if(!res.data){
+                if(!res.data){
                     reject({
-                        status: res.status,
-                        code: res.problem,
+                        code: 500,
                         message: 'error! response data is null',
                     });
                     return;
                 }
+
                 return res.data
                     .pipe(fs.createWriteStream(savePath))
                     .on('finish', () => resolve(savePath))
-                    .on('error', e => reject(e));
-            });
+                    .on('error', (e: any) => reject(e));
+
+            })
+            .catch(res => {
+                reject({
+                    code: res.code,
+                    message: res.message,
+                });
+            })
         });
+
+
+
     }
 
 }
