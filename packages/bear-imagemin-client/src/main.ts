@@ -1,10 +1,10 @@
-import {BearImageminClient} from 'bear-imagemin-client';
+import BearImageminClient from './BearImageminClient';
 import { join } from 'path';
 
 const imageAp = new BearImageminClient('http://localhost:3002');
 
-const filePath = join(__dirname, '../static/sample.png');
-const toPath = join(__dirname, '../static/sample_convert.png');
+const filePath = join(__dirname, '../example/static/sample.png');
+const toPath = join(__dirname, '../example/static/sample_convert.png');
 
 new Promise(async () => {
 

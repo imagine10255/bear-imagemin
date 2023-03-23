@@ -1,6 +1,6 @@
 import * as fs from 'fs';
-import {IBearImageminClient} from './typings';
-import {apiService, requestHeader} from './api';
+import {IBearImageminClient} from './types';
+import axios from 'axios';
 
 const FormData = require('form-data');
 
@@ -54,10 +54,11 @@ export default class BearImageminClient implements IBearImageminClient{
 
         return new Promise<string>((resolve, reject) => {
 
-            apiService.post(`${this._baseUrl}/api/squash`, data, {
+            axios.post(`${this._baseUrl}/squash`, data, {
                 headers: {
-                    ...requestHeader.formData,
+                    'Content-Type': 'multipart/form-data',
                     'X-Requested-With': 'XMLHttpRequest',
+                    'Cache-Control': 'no-cache',
                 },
                 responseType: 'stream',
                 timeout: 5 * 60 * 1000

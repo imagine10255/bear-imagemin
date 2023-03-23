@@ -1,14 +1,14 @@
 {
-  "compilerOptions": {
-    "outDir": "dist",
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": false,
-    "moduleResolution": "node"
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "example"]
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "es6",
+        "module": "commonjs",
+        "declaration": true,
+        "strict": true,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": false
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist", "example"]
 }

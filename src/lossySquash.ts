@@ -4,7 +4,7 @@ import imageminWebp from 'imagemin-webp';
 import imageminPngquant from 'imagemin-pngquant';
 
 import sharp from 'sharp';
-import {TLossySquash} from './typings';
+import {TLossySquash} from './types';
 
 interface IPlugMap {
     [types: string]: Plugin[],
