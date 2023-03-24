@@ -7,13 +7,18 @@ COPY . .
 
 RUN yarn build
 
-#RUN rm -rf ./node_modules/imagemin-optipng && \
-#    rm -rf ./node_modules/imagemin-pngquant && \
-#    rm -rf ./node_modules/pngquant-bin && \
-#    unzip -o linux-modules/png-modules -d ./node_modules
+# 替換在 linux compile 的 bin
+RUN rm -rf ./node_modules/jpegtran-bin && \
+    rm -rf ./node_modules/mozjpeg && \
+    rm -rf ./node_modules/optipng-bin && \
+    rm -rf ./node_modules/pngquant-bin && \
+    rm -rf ./node_modules/sharp && \
+    tar -zxvf ./pkg/linux-pkg.tar.gz -C ./node_modules
+
 RUN mkdir ./copy-tmp && \
     mv node_modules ./copy-tmp && \
-    mv dist ./copy-tmp
+    mv dist ./copy-tmp && \
+    mv package.json ./copy-tmp
 
 # And then copy over node_modules, etc from that stage to the smaller base image
 FROM imagine10255/node-imagemin:0.0.1
