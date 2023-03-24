@@ -61,6 +61,7 @@ export class ImageminController {
 
         const {timeout} = this.getConfig();
 
+        console.log('timeout', timeout);
 
         try {
             const contentType = contentTypeMap[extname];
