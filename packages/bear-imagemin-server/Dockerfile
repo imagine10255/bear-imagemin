@@ -18,4 +18,4 @@ COPY --from=builder /opt/app/copy-tmp .
 RUN mkdir /tmp/bear_imagemin
 
 EXPOSE 8080
-CMD ["node", "--max_old_space_size=2048", "dist/main.js"]
+CMD ["pm2-runtime", "dist/main.js", "-i", "max"]
