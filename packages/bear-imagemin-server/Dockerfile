@@ -6,10 +6,14 @@ RUN yarn install --prod --frozen-lockfile
 COPY . .
 
 RUN yarn build
+
+#RUN rm -rf ./node_modules/imagemin-optipng && \
+#    rm -rf ./node_modules/imagemin-pngquant && \
+#    rm -rf ./node_modules/pngquant-bin && \
+#    unzip -o linux-modules/png-modules -d ./node_modules
 RUN mkdir ./copy-tmp && \
     mv node_modules ./copy-tmp && \
     mv dist ./copy-tmp
-
 
 # And then copy over node_modules, etc from that stage to the smaller base image
 FROM imagine10255/node-imagemin:0.0.1

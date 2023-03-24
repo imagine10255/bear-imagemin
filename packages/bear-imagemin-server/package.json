@@ -1,10 +1,10 @@
 {
   "name": "bear-imagemin-server",
-  "version": "0.0.6",
-  "description": "imagemin on nestjs server",
+  "version": "0.0.16",
+  "description": "bear-imagemin on nestjs server",
   "author": "imagine10255@gmail.com",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "dockerRegistry": "docker.io/imagine10255",
   "repository": {
     "type": "git",
