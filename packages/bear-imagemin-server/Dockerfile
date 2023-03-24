@@ -6,15 +6,15 @@ RUN yarn install --prod --frozen-lockfile
 COPY . .
 
 RUN yarn build
-#RUN mkdir ./copy-tmp && \
-#    mv node_modules ./copy-tmp && \
-#    mv dist ./copy-tmp
+RUN mkdir ./copy-tmp && \
+    mv node_modules ./copy-tmp && \
+    mv dist ./copy-tmp
 
 
 # And then copy over node_modules, etc from that stage to the smaller base image
 FROM imagine10255/node-imagemin:0.0.1
 WORKDIR /opt/app/
-COPY --from=builder /opt/app .
+COPY --from=builder /opt/app/copy-tmp .
 RUN mkdir /tmp/bear_imagemin
 
 EXPOSE 8080
