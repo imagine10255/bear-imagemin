@@ -7,7 +7,7 @@
 
 ## Description
 
-Bear-imagemin-server is use nestjs framework TypeScript starter repository.
+bear-imagemin-server is use nestjs framework TypeScript starter repository.
 
 ## Installation
 
@@ -27,7 +27,7 @@ $ yarn run dev
 
 ```bash
 $ yarn docker:build
-$ docker tag imagine10255/bear-imagemin-server:1.0.0 imagine10255/bear-imagemin-server:latest
+$ docker tag imagine10255/bear-imagemin-server:1.0.3 imagine10255/bear-imagemin-server:latest
 $ docker push imagine10255/bear-imagemin-server:latest
 ```
 

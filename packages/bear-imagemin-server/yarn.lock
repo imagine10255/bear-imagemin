@@ -1569,10 +1569,10 @@ bear-node-docker@^2.2.2:
     svg-parser "^2.0.4"
     yargs "17.5.1"
 
-bear-node-imagemin@1.0.3-alpha.2:
-  version "1.0.3-alpha.2"
-  resolved "https://registry.yarnpkg.com/bear-node-imagemin/-/bear-node-imagemin-1.0.3-alpha.2.tgz#d68207aee250c23a3b01256718929ce2822b58ff"
-  integrity sha512-SxES19kyakPGUU6J6Xa749jrLTfsX2j1z8RHKZ6ZSuKKtvwdw6a9d5uzwUWhu4PLwQjee7gZHB6m/zMOAc9LnA==
+bear-node-imagemin@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/bear-node-imagemin/-/bear-node-imagemin-1.0.3.tgz#78fbdae30edada2c1164e54419499d8585454f58"
+  integrity sha512-h0MjiJ9BuT+kH8EVhB20HaxRxcFYOTjOELCrT0XeBWvYBZo3CzotUIzankutMPwdKI9VJ1d8ZV5rnyBKCgo4jw==
   dependencies:
     imagemin "7.0.1"
     imagemin-jpegtran "^7.0.0"

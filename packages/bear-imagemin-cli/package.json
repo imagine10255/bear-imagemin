@@ -1,6 +1,6 @@
 {
   "name": "bear-imagemin-cli",
-  "version": "0.0.7",
+  "version": "1.0.3",
   "description": "imagemin + sharp Nodejs image processing cli",
   "keywords": [
     "typescript",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@types/commander": "^2.12.2",
-    "bear-node-imagemin": "^1.0.3-alpha.2",
+    "bear-node-imagemin": "^1.0.3",
     "commander": "^10.0.0"
   },
   "devDependencies": {

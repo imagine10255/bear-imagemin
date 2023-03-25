@@ -38,6 +38,13 @@ const newBuff = isLossLess ?
 fs.writeFileSync('./example/static/lossySquash/image_1024.png', newBuff);
 ```
 
+## Use Docker Server + Client
+see `packages/bear-imagemin-server` and `packages/bear-imagemin-client`
+
+
+## Use CLI
+see `packages/bear-imagemin-cli`
+
 
 
 ## Document

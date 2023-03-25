@@ -1,6 +1,6 @@
 {
   "name": "bear-imagemin-client",
-  "version": "0.0.7",
+  "version": "1.0.3",
   "description": "imagemin + sharp Nodejs image processing tool",
   "keywords": [
     "typescript",

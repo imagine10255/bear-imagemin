@@ -1,6 +1,6 @@
 {
   "name": "bear-imagemin-server",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "bear-imagemin on nestjs server",
   "author": "imagine10255@gmail.com",
   "private": true,
@@ -39,7 +39,7 @@
     "@types/multer": "^1.4.7",
     "@types/node": "18.11.18",
     "@types/supertest": "^2.0.11",
-    "bear-node-imagemin": "1.0.3-alpha.2",
+    "bear-node-imagemin": "1.0.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "reflect-metadata": "^0.1.13",
