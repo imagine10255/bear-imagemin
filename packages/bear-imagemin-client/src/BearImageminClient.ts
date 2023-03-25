@@ -1,6 +1,6 @@
-import * as fs from 'fs';
-import {IBearImageminClient} from './types';
 import axios from 'axios';
+import * as fs from 'fs';
+import {IBearImageminClient, IOptions} from './types';
 
 const FormData = require('form-data');
 
@@ -9,7 +9,7 @@ const FormData = require('form-data');
  * 圖片壓縮客戶端
  */
 export default class BearImageminClient implements IBearImageminClient{
-    protected _baseUrl = 'http://localehost:3001';
+    protected _baseUrl = 'http://localehost:8080';
 
     constructor(baseUrl?: string) {
         if(baseUrl){
@@ -24,15 +24,7 @@ export default class BearImageminClient implements IBearImageminClient{
      * @param savePath
      * @param options (如有設定 quality 或小於100 則為有損)
      */
-    async squash(filePath: string, savePath: string, options?: {
-        extname?: string,
-        resize?: {
-            width?: number,
-            height?: number
-        },
-        quality?: number,
-        ignoreOverflowSize?: boolean,
-    }){
+    async squash(filePath: string, savePath: string, options?: IOptions){
         const data = new FormData();
         data.append('sourceFile', fs.createReadStream(filePath));
 

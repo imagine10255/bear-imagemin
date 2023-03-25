@@ -1,8 +1,8 @@
-FROM imagine10255/node-imagemin:0.0.1 AS builder
+FROM imagine10255/node-imagemin:latest AS builder
 WORKDIR /opt/app/
 COPY package.json yarn.lock ./
 RUN awk '/},/ { p = 0 } { if (!p) { print $0 } } /"devDependencies":/ { p = 1 }' package.json > package.json.tmp && mv package.json.tmp package.json
-RUN yarn install --prod --frozen-lockfile
+RUN yarn install --prod --frozen-lockfile --ignore-optional
 COPY . .
 
 RUN yarn build
@@ -21,7 +21,7 @@ RUN mkdir ./copy-tmp && \
     mv package.json ./copy-tmp
 
 # And then copy over node_modules, etc from that stage to the smaller base image
-FROM imagine10255/node-imagemin:0.0.1
+FROM imagine10255/node-imagemin:latest
 WORKDIR /opt/app/
 COPY --from=builder /opt/app/copy-tmp .
 RUN mkdir /tmp/bear_imagemin

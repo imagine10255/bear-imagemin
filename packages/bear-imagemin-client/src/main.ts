@@ -1,7 +1,7 @@
 import BearImageminClient from './BearImageminClient';
 import { join } from 'path';
 
-const imageAp = new BearImageminClient('http://localhost:3002');
+const imageAp = new BearImageminClient('http://localhost:3001');
 
 const filePath = join(__dirname, '../example/static/sample.png');
 const toPath = join(__dirname, '../example/static/sample_convert.png');

@@ -1,6 +1,6 @@
 {
   "name": "bear-imagemin-server",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "bear-imagemin on nestjs server",
   "author": "imagine10255@gmail.com",
   "private": true,
@@ -8,7 +8,7 @@
   "dockerRegistry": "docker.io/imagine10255",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/bearests/211218-bearests-api"
+    "url": "https://github.com/imagine10255/bear-node-imagemin.git"
   },
   "scripts": {
     "build": "nest build",
@@ -16,8 +16,6 @@
     "prebuild": "rimraf dist",
     "dev": "yarn prebuild && nest start --watch",
     "start": "nest start",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "docker:build": "bear-node-docker build --dockerfile=.",
     "docker:push": "bear-node-docker push && bear-node-docker remove",
