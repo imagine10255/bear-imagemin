@@ -1,15 +1,15 @@
 version: '3.4'
 
 services:
-
     imageSquash:
        restart: "no"
        image: imagine10255/bear-imagemin-server:latest
        ports:
-         - "3002:3000"
+         - "8082:3000"
        environment:
            IMAGEMIN_FILE_LIMIT: 20000000
            IMAGEMIN_TIMEOUT: 900000
+       command: ["pm2-runtime", "dist/main.js", "-i", "1"]
 
 networks:
     default:

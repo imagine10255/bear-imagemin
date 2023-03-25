@@ -9,7 +9,7 @@ const FormData = require('form-data');
  * 圖片壓縮客戶端
  */
 export default class BearImageminClient implements IBearImageminClient{
-    protected _baseUrl = 'http://localehost:8080';
+    protected _baseUrl = 'http://localehost:8082';
 
     constructor(baseUrl?: string) {
         if(baseUrl){

@@ -16,7 +16,7 @@ describe('BearImageminClient', () => {
             Tty: true,
             ExposedPorts: { '3000/tcp': {} },
             HostConfig: {
-                PortBindings: { '3000/tcp': [{ HostPort: '8080' }] },
+                PortBindings: { '3000/tcp': [{ HostPort: '8082' }] },
             },
         });
 
@@ -34,7 +34,7 @@ describe('BearImageminClient', () => {
 
 
     test('squash should compress an image and save it to the specified path', async () => {
-        const client = new BearImageminClient('http://localhost:8080');
+        const client = new BearImageminClient('http://localhost:8082');
 
         const filePath = path.join(__dirname, '../../static/fixture.jpg');
         const targetFile = path.join(__dirname, '../../static/losslessSquash.webp');

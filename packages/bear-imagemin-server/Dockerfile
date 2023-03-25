@@ -27,4 +27,4 @@ COPY --from=builder /opt/app/copy-tmp .
 RUN mkdir /tmp/bear_imagemin
 
 EXPOSE 3000
-CMD ["pm2-runtime", "dist/main.js", "-i", "max"]
+CMD ["pm2-runtime", "dist/main.js", "-i", "1"]
