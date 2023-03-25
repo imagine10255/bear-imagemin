@@ -1,12 +1,11 @@
 {
   "name": "bear-node-imagemin",
-  "version": "1.0.3-alpha.2",
+  "version": "1.0.3",
   "description": "imagemin + sharp Nodejs image processing tool",
   "keywords": [
     "typescript",
-    "javscript",
-    "utils",
-    "imagemin"
+    "imagemin",
+    "sharp"
   ],
   "author": "imagine10255",
   "license": "MIT",
@@ -65,7 +64,6 @@
     "cz-customizable": "6.3.0",
     "eslint": "^8.8.0",
     "jest": "^29.5.0",
-    "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
     "standard-version": "9.5.0",
     "ts-jest": "^29.0.5",

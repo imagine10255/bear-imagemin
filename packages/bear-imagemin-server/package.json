@@ -1,6 +1,6 @@
 {
   "name": "bear-imagemin-server",
-  "version": "0.0.20",
+  "version": "1.0.0",
   "description": "bear-imagemin on nestjs server",
   "author": "imagine10255@gmail.com",
   "private": true,

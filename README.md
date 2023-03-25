@@ -5,8 +5,8 @@
 [![NPM](https://img.shields.io/npm/v/bear-node-imagemin.svg)](https://www.npmjs.com/package/bear-node-imagemin)
 [![npm](https://img.shields.io/npm/dm/bear-node-imagemin.svg)](https://www.npmjs.com/package/bear-node-imagemin)
 
-- If you don't want to worry about how nodejs is installed in docker,
-  You can use `Docker image`([bear-imagemin-api](https://github.com/imagine10255/bear-node-imagemin/tree/master/packages/bear-imagemin-api)) + `npm package` ([bear-imagemin-client](https://github.com/imagine10255/bear-node-imagemin/tree/master/packages/bear-imagemin-client)) directly
+- If you don't want to worry about the problems imagemin encounters in the runtime environment,
+  You can use `Docker image`([bear-imagemin-server](https://github.com/imagine10255/bear-node-imagemin/tree/master/packages/bear-imagemin-server)) + `npm package` ([bear-imagemin-client](https://github.com/imagine10255/bear-node-imagemin/tree/master/packages/bear-imagemin-client)) directly
 - If you want to use it directly in the project, just install `bear-node-imagemin` directly
 
 ## Install
@@ -16,7 +16,7 @@ yarn add -D bear-node-imagemin
 ```
 
 
-## Use
+## How to use
 ```typescript
 import {lossySquash, losslessSquash} from 'bear-node-imagemin';
 
@@ -26,7 +26,7 @@ const sourceFile = './example/static/source.png';
 const params = {
   quality: isLossLess ? undefined: quality,
   resize: {width: 200, height: 200, ignoreOverflowSize: true},
-  extname: '.webp',
+  extname: 'webp',
 };
 
 // file to buff

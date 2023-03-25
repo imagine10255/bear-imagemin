@@ -27,7 +27,8 @@ $ yarn run dev
 
 ```bash
 $ yarn docker:build
-$ docker tag imagine10255/bear-imagemin-server:0.0.19 imagine10255/bear-imagemin-server:latest
+$ docker tag imagine10255/bear-imagemin-server:1.0.0 imagine10255/bear-imagemin-server:latest
+$ docker push imagine10255/bear-imagemin-server:latest
 ```
 
 in docker file `FROM imagine10255/node-imagemin:latest`
@@ -40,13 +41,10 @@ in docker file `FROM imagine10255/node-imagemin:latest`
 version: '3.4'
 
 services:
-    imageSquash2:
-       restart: "no"
-       image: imagine10255/bear-imagemin-server:0.0.19
-       volumes:
-         - ./pkg:/opt/app/pkg
+    imageSquash:
+       image: imagine10255/bear-imagemin-server:latest
        ports:
-         - "3001:3000"
+         - "8080:3000"
 
 networks:
     imdockgroup:
