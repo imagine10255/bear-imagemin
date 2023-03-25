@@ -6,6 +6,7 @@ export interface IOptions {
     },
     quality?: number,
     ignoreOverflowSize?: boolean,
+    timeout?: number,
 }
 
 

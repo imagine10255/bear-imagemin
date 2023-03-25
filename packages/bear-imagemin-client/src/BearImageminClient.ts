@@ -44,6 +44,8 @@ export default class BearImageminClient implements IBearImageminClient{
             data.append('extname', options.extname);
         }
 
+        const timeout = options?.timeout ?? 30 * 1000;
+
         return new Promise<string>((resolve, reject) => {
 
             axios.post(`${this._baseUrl}/squash`, data, {
@@ -53,7 +55,7 @@ export default class BearImageminClient implements IBearImageminClient{
                     'Cache-Control': 'no-cache',
                 },
                 responseType: 'stream',
-                timeout: 5 * 60 * 1000
+                timeout,
             })
             .then(res => {
 

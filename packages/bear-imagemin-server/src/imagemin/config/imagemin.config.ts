@@ -1,15 +1,15 @@
 import {registerAs} from '@nestjs/config';
 
 export interface IImageminConfig {
-    fileSize: number,
+    fileLimit: number,
     timeout: number,
 }
 
 export const configKey = 'imagemin';
 const configFactory = (): IImageminConfig => {
     return {
-        fileSize: (1024 * 1024) * 5, //5MB
-        timeout: 5000,
+        fileLimit: Number(process.env.IMAGEMIN_FILE_LIMIT ?? 20 * (1024 * 1024)), //20MB
+        timeout: Number(process.env.IMAGEMIN_TIMEOUT ?? 30 * 1000),
     };
 };
 

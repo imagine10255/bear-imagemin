@@ -17,14 +17,14 @@ import imageminConfig, {configKey, IImageminConfig} from './config/imagemin.conf
             imports: [ConfigModule],
             inject: [ConfigService],
             useFactory: async (configService: ConfigService): Promise<MulterModuleOptions> => {
-                const {fileSize} = configService.get<IImageminConfig>(configKey);
+                const {fileLimit} = configService.get<IImageminConfig>(configKey);
                 return {
                     storage: diskStorage({
                         destination: getTmpPath,
                         filename: modifyFileName,
                     }),
                     limits: {
-                        fileSize,
+                        fileSize: fileLimit,
                     },
                     fileFilter: imageFileFilter,
                 };

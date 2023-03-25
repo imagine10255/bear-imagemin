@@ -1,7 +1,7 @@
 {
   "name": "bear-node-imagemin",
   "version": "1.0.3-alpha.2",
-  "description": "Common tools and methods for project development",
+  "description": "imagemin + sharp Nodejs image processing tool",
   "keywords": [
     "typescript",
     "javscript",
@@ -104,7 +104,6 @@
       ],
       "no-useless-escape": "off",
       "import/no-anonymous-default-export": "off",
-      "react-hooks/exhaustive-deps": "off",
       "@typescript-eslint/no-unused-vars": "off",
       "no-mixed-operators": "off",
       "@typescript-eslint/ban-ts-comment": "off",

@@ -21,3 +21,35 @@ $ yarn install
 # watch mode
 $ yarn run dev
 ```
+
+
+## build Docker Image
+
+```bash
+$ yarn docker:build
+$ docker tag imagine10255/bear-imagemin-server:0.0.19 imagine10255/bear-imagemin-server:latest
+```
+
+in docker file `FROM imagine10255/node-imagemin:latest`
+
+
+
+## Running in docker
+
+```yaml
+version: '3.4'
+
+services:
+    imageSquash2:
+       restart: "no"
+       image: imagine10255/bear-imagemin-server:0.0.19
+       volumes:
+         - ./pkg:/opt/app/pkg
+       ports:
+         - "3001:3000"
+
+networks:
+    imdockgroup:
+        external: true
+```
+
