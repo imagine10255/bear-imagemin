@@ -3,6 +3,7 @@ import {AppModule} from './app.module';
 import * as fs from 'fs';
 import {tmpPath} from './config';
 import {Logger} from '@nestjs/common';
+import {ConfigService} from '@nestjs/config';
 
 
 async function bootstrap() {
@@ -12,10 +13,14 @@ async function bootstrap() {
 
     const app = await NestFactory.create(AppModule);
 
+
+    const configService = app.get(ConfigService);
+    const port = configService.get('PORT', 3000);
+
     if (!fs.existsSync(tmpPath)) {
         fs.mkdirSync(tmpPath);
     }
 
-    await app.listen(3000);
+    await app.listen(port);
 }
 bootstrap();
