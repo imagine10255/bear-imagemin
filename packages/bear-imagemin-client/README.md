@@ -40,7 +40,7 @@ name    | type               | required | default |
 -------------|--------------------|----------|---------|
 quality   | number             |
 ignoreOverflowSize   | boolean            |          | true
-extname   | .jpg, .png, .webp' |          | .webp   |
+extname   | jpg, png, webp' |          | webp   |
 reszie   |  |          |   |
 
 

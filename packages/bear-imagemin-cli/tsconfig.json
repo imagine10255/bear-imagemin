@@ -3,11 +3,15 @@
     "outDir": "dist",
     "target": "es6",
     "module": "commonjs",
+    "declaration": true,
     "strict": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "resolveJsonModule": false
+    "resolveJsonModule": false,
+    "rootDir": "src"
   },
-  "include": ["lib"],
+  "include": [
+    "src"
+  ],
   "exclude": ["node_modules", "dist", "example"]
 }
