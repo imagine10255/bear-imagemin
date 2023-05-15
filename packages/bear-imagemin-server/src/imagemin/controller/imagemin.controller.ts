@@ -1,7 +1,7 @@
 import {Body, Controller, Get, Post, UseInterceptors, UploadedFile, Res, Logger} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
 import {FileInterceptor} from '@nestjs/platform-express';
-import * as fs from 'fs';
+import {unlink} from 'node:fs';
 import {losslessSquash, lossySquash} from 'bear-node-imagemin';
 import {SquashDto} from '../dto/imagemin.dto';
 import {contentTypeMap} from '../config/content-type';
@@ -56,26 +56,16 @@ export class ImageminController {
         };
         this.logger.debug(`Squash [${id}] start ${JSON.stringify(params)}`);
 
-        // 讀檔案
-        const fileBuffer = fs.readFileSync(sourceFile.path);
-
-        const {timeout} = this.getConfig();
-
 
         try {
             const contentType = contentTypeMap[extname];
 
-            const newBuff = await Promise.race([
-                isLossLess ? losslessSquash(fileBuffer, params) : lossySquash(fileBuffer, params),
-                new Promise((_, reject) => setTimeout(() => {
-                    return reject(new Error(`Image processing timed out ${timeout}`));
-                }, timeout)),
-            ]);
+            const newBuff = await (isLossLess ? losslessSquash(sourceFile.path, params) : lossySquash(sourceFile.path, params));
 
             this.logger.log(`Squash [${id}] success`);
 
             // 刪除檔案
-            fs.unlink(sourceFile.path, err => {
+            unlink(sourceFile.path, err => {
                 if (err) {
                     this.logger.error(`Squash [${id}] delete file error: ${sourceFile.path}`, err);
                     return;

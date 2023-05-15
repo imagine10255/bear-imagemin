@@ -1,3 +1,4 @@
+import {createReadStream} from 'node:fs';
 import {extname} from 'path';
 import {tmpPath} from 'src/config';
 
@@ -37,3 +38,26 @@ export const modifyFileName = (req, file, callback) => {
 export const getTmpPath = (req, file, callback) => {
     callback(null, tmpPath);
 };
+
+
+/**
+ * 取得 package.json 設定
+ */
+export const readPackageJson = async (): Promise<{ name: string; version: string }> => {
+    const packageJsonPath = './package.json';
+
+    const stream = createReadStream(packageJsonPath);
+    const chunks: Buffer[] = [];
+
+    for await (const chunk of stream) {
+        chunks.push(chunk);
+    }
+
+    const buffer = Buffer.concat(chunks);
+    const packageJson = JSON.parse(buffer.toString());
+
+    return {
+        name: packageJson.name,
+        version: packageJson.version,
+    };
+}

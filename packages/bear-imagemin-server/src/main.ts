@@ -4,18 +4,21 @@ import * as fs from 'fs';
 import {tmpPath} from './config';
 import {Logger} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
+import {readPackageJson} from './utils/file';
 
 
 async function bootstrap() {
-    const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
-    const logger = new Logger('Bootstrap');
-    logger.debug(`Application ${packageJson.name}: ${packageJson.version}`);
+    readPackageJson()
+        .then(data => {
+            const logger = new Logger('Bootstrap');
+            logger.debug(`Application ${data.name}: ${data.version}`);
+        });
 
     const app = await NestFactory.create(AppModule);
 
 
     const configService = app.get(ConfigService);
-    const port = configService.get('PORT', 3000);
+    const port = configService.get('PORT', 8080);
 
     if (!fs.existsSync(tmpPath)) {
         fs.mkdirSync(tmpPath);
