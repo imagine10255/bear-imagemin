@@ -7,8 +7,8 @@ describe('losslessSquash Test',  () => {
 
 
     it('should pass', async () => {
-        const buffer = await fsPromises.readFile(path.join(__dirname, '../../static/fixture.jpg'));
-        const newBuffer = await losslessSquash(buffer, {
+        const sourcePath = path.join(__dirname, '../../static/fixture.jpg');
+        const newBuffer = await losslessSquash(sourcePath, {
             extname: 'webp',
             resize: {
                 width: 250,
@@ -16,8 +16,8 @@ describe('losslessSquash Test',  () => {
             }
         });
 
-        const targetFile = path.join(__dirname, '../../static/losslessSquash.webp');
-        // fs.writeFileSync(targetFile, newBuffer);
+        const targetFile = path.join(__dirname, '../../static/losslessSquash_.webp');
+        // fsPromises.writeFile(targetFile, newBuffer);
 
         const resBuffer = await fsPromises.readFile(targetFile);
 

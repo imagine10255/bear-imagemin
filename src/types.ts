@@ -11,5 +11,5 @@ interface ILossyOptions extends ILosslessOptions {
 }
 
 
-export declare type TLosslessSquash = (bufferData: Buffer, options: ILosslessOptions) => Promise<Buffer>
-export declare type TLossySquash = (bufferData: Buffer, options: ILossyOptions) => Promise<Buffer>
+export declare type TLosslessSquash = (bufferData: string, options: ILosslessOptions) => Promise<Buffer>
+export declare type TLossySquash = (bufferData: string, options: ILossyOptions) => Promise<Buffer>

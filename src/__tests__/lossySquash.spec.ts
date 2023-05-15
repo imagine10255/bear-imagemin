@@ -7,7 +7,7 @@ describe('lossySquash Test',  () => {
 
 
     it('should pass', async () => {
-        const buffer = await fsPromises.readFile(path.join(__dirname, '../../static/fixture.jpg'));
+        const buffer = path.join(__dirname, '../../static/fixture.jpg');
         const newBuffer = await lossySquash(buffer, {
             extname: 'webp',
             quality: 90,

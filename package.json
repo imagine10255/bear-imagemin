@@ -1,6 +1,6 @@
 {
   "name": "bear-node-imagemin",
-  "version": "1.0.3",
+  "version": "1.0.4-alpha.0",
   "description": "imagemin + sharp Nodejs image processing tool",
   "keywords": [
     "typescript",
@@ -43,7 +43,8 @@
     "imagemin-optipng": "^8.0.0",
     "imagemin-pngquant": "9.0.2",
     "imagemin-webp": "6.0.0",
-    "sharp": "^0.30.7"
+    "sharp": "^0.30.7",
+    "ulid": "^2.3.0"
   },
   "devDependencies": {
     "@types/imagemin": "^8.0.0",
@@ -58,8 +59,8 @@
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "babel-eslint": "^10.0.3",
-    "cross-env": "^7.0.2",
     "copyfiles": "^2.4.1",
+    "cross-env": "^7.0.2",
     "cz-conventional-changelog": "3.3.0",
     "cz-customizable": "6.3.0",
     "eslint": "^8.8.0",
