@@ -67,28 +67,30 @@ export default class BearImageminClient implements IBearImageminClient{
                     'X-Requested-With': 'XMLHttpRequest',
                     'Cache-Control': 'no-cache',
                 },
-                responseType: 'stream',
+                responseType: 'arraybuffer', // 修改為 arraybuffer 以便處理二進制數據
                 timeout,
             })
-            .then(res => {
+                .then(res => {
 
-                if(!res.data){
+                    if(!res.data){
+                        reject({
+                            code: 500,
+                            message: 'error! response data is null',
+                        });
+                        return;
+                    }
+
+                    // 將二進制數據轉換為 Base64 字符串
+                    const base64 = Buffer.from(res.data, 'binary').toString('base64');
+                    resolve(base64);
+
+                })
+                .catch(res => {
                     reject({
-                        code: 500,
-                        message: 'error! response data is null',
+                        code: res.code,
+                        message: res.message,
                     });
-                    return;
-                }
-
-                return res.data;
-
-            })
-            .catch(res => {
-                reject({
-                    code: res.code,
-                    message: res.message,
-                });
-            })
+                })
         });
     }
 
