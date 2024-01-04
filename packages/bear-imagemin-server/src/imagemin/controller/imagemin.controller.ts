@@ -45,7 +45,7 @@ export class ImageminController {
             .replace('jpeg', 'jpg');
 
         const isLossLess = !(body.quality && body.quality < 99);
-        const params = {
+        const params: ILosslessOptions = {
             quality: isLossLess ? undefined: body.quality,
             resize: {
                 width: body.resizeWidth,

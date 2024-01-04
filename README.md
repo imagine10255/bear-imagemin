@@ -46,6 +46,14 @@ see `packages/bear-imagemin-server` and `packages/bear-imagemin-client`
 see `packages/bear-imagemin-cli`
 
 
+## Release
+
+in root dir
+
+```bash
+$ yarn build
+$ npm publish --access=public
+```
 
 ## Document
 
