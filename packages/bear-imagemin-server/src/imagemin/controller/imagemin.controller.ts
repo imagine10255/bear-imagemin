@@ -2,7 +2,7 @@ import {Body, Controller, Get, Post, UseInterceptors, UploadedFile, Res, Logger}
 import {ConfigService} from '@nestjs/config';
 import {FileInterceptor} from '@nestjs/platform-express';
 import {unlink} from 'node:fs';
-import {losslessSquash, lossySquash} from 'bear-node-imagemin';
+import {losslessSquash, lossySquash, TLosslessSquash} from 'bear-node-imagemin';
 import {SquashDto} from '../dto/imagemin.dto';
 import {contentTypeMap} from '../config/content-type';
 import {configKey, IImageminConfig} from '../config/imagemin.config';
@@ -45,7 +45,7 @@ export class ImageminController {
             .replace('jpeg', 'jpg');
 
         const isLossLess = !(body.quality && body.quality < 99);
-        const params: ILosslessOptions = {
+        const params: TLosslessSquash = {
             quality: isLossLess ? undefined: body.quality,
             resize: {
                 width: body.resizeWidth,

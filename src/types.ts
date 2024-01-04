@@ -1,4 +1,4 @@
-interface ILosslessOptions {
+export interface ILosslessOptions {
     extname?: TExtname
     resize?: {
         width?: number,
@@ -6,7 +6,7 @@ interface ILosslessOptions {
         ignoreOverflowSize?: boolean, // 是否忽略 目標尺寸 大於 目前尺寸, 變成放大
     },
 }
-interface ILossyOptions extends ILosslessOptions {
+export interface ILossyOptions extends ILosslessOptions {
     quality?: number, // 1 - 100
 }
 
