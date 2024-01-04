@@ -19,12 +19,12 @@ export default class BearImageminClient implements IBearImageminClient{
 
 
     /**
-     * 壓縮
+     * 壓縮轉 base64
      * @param filePath
      * @param savePath
      * @param options (如有設定 quality 或小於100 則為有損)
      */
-    async squash(filePath: string, savePath: string, options?: IOptions){
+    private getFormData(filePath: string, options?: IOptions){
         const data = new FormData();
         data.append('sourceFile', fs.createReadStream(filePath));
 
@@ -43,6 +43,66 @@ export default class BearImageminClient implements IBearImageminClient{
         if(options?.extname){
             data.append('extname', options.extname);
         }
+
+        return data;
+
+    }
+
+
+    /**
+     * 轉 Base64
+     * @param filePath
+     * @param options (如有設定 quality 或小於100 則為有損)
+     */
+    async toBase64(filePath: string, options?: IOptions){
+        const data = this.getFormData(filePath, options);
+
+        const timeout = options?.timeout ?? 30 * 1000;
+
+        return new Promise<string>((resolve, reject) => {
+
+            axios.post(`${this._baseUrl}/squash`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Cache-Control': 'no-cache',
+                },
+                responseType: 'stream',
+                timeout,
+            })
+            .then(res => {
+
+                if(!res.data){
+                    reject({
+                        code: 500,
+                        message: 'error! response data is null',
+                    });
+                    return;
+                }
+
+                return res.data;
+
+            })
+            .catch(res => {
+                reject({
+                    code: res.code,
+                    message: res.message,
+                });
+            })
+        });
+    }
+
+
+
+
+    /**
+     * 壓縮
+     * @param filePath
+     * @param savePath
+     * @param options (如有設定 quality 或小於100 則為有損)
+     */
+    async squash(filePath: string, savePath: string, options?: IOptions){
+        const data = this.getFormData(filePath, options);
 
         const timeout = options?.timeout ?? 30 * 1000;
 
@@ -80,9 +140,6 @@ export default class BearImageminClient implements IBearImageminClient{
                 });
             })
         });
-
-
-
     }
 
 }
