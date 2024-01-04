@@ -1559,20 +1559,20 @@ base64-js@^1.3.1:
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.5.1.tgz#1b1b440160a5bf7ad40b650f095963481903930a"
   integrity sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==
 
-bear-node-docker@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/bear-node-docker/-/bear-node-docker-2.2.2.tgz#e786451205428f8688932cc6a45a487285c50e64"
-  integrity sha512-2U3jPNPII70S+5ESY+8I5VB7PsUSUCip2nHlI693u+YWE2jOyK0wWCYfvYKzx+TkZNvFXiiNYcRycQvMNb5VVA==
+bear-node-docker@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/bear-node-docker/-/bear-node-docker-2.2.4.tgz#33490e66446df0b7bb911f0e3c59aec49facf414"
+  integrity sha512-WubSstSRfyx4yUHKN+sZqnRne2A9dl1ipKAK33xHghPkWRxPumeE9hAsVV4VAzMGpzPyqRgNgaB6SsDWrqWzdg==
   dependencies:
     enquirer "^2.3.6"
     ora "5.4.0"
     svg-parser "^2.0.4"
     yargs "17.5.1"
 
-bear-node-imagemin@1.0.4-alpha.2:
-  version "1.0.4-alpha.2"
-  resolved "https://registry.yarnpkg.com/bear-node-imagemin/-/bear-node-imagemin-1.0.4-alpha.2.tgz#e392d7ad6e1fe7a3e5bcb14a6b7612bd578fa0fb"
-  integrity sha512-qEnNyvgx/NWQjBSb9VTdV63Wce6LYYsiPuT9TBHy7iw5RKrKwnHItQMgjxl7ynn3Uj1ssRitZNQJ+CsCewPljA==
+bear-node-imagemin@1.0.4-alpha.3:
+  version "1.0.4-alpha.3"
+  resolved "https://registry.yarnpkg.com/bear-node-imagemin/-/bear-node-imagemin-1.0.4-alpha.3.tgz#a3b8b362fb66c1c4e7732fd6f89d6257c3b1095e"
+  integrity sha512-E0ksUvCUg/uMH22k2s/8wNyJ9HmqMYRwq+HXNiIz3zI8vuse5Rx15I6H4corI5L/kssy3cBqc8vFVhTZKmdjMw==
   dependencies:
     imagemin "7.0.1"
     imagemin-jpegtran "^7.0.0"
