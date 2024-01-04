@@ -4,7 +4,10 @@ import imageminOptipng from 'imagemin-optipng';
 import imageminWebp from 'imagemin-webp';
 import sharp from 'sharp';
 import os from 'os';
-import {TLosslessSquash} from './types';
+import {
+    TLosslessSquash,
+    TExtname
+} from './types';
 import {Transform} from 'stream';
 import {createReadStream, promises as fsPromises} from 'node:fs';
 import {ulid} from 'ulid';
@@ -23,33 +26,43 @@ interface IPlugMap {
  * losslessSquash-jpegtran https://github.com/imagemin/imagemin-jpegtran
  * losslessSquash-pngquant https://github.com/imagemin/imagemin-optipng
  *
- * @param bufferData
+ * @param filePath
  * @param options
  */
-const losslessSquash: TLosslessSquash = async (path, options) => {
+const losslessSquash: TLosslessSquash = async (filePath, options) => {
     // 縮圖
     const resize = options?.resize;
+    const fileExtname = options?.extname;
 
-    let tmpPath = path;
-    if(resize){
-        tmpPath = `${os.tmpdir()}/${ulid().toLowerCase()}${extname(path)}`;
-        const ignoreOverflowSize = resize.ignoreOverflowSize ?? false;
-        tmpPath = await new Promise((resolve, rejects) => {
-            sharp(path)
-                .resize(resize?.width, resize?.height, {withoutEnlargement: !ignoreOverflowSize})
-                .toFile(tmpPath, (err, info) => {
+
+
+    const formatExtname = options?.extname ?? extname(filePath)
+        .replace('.','')
+        .replace('jpeg','jpg');
+
+    const savePath = `${os.tmpdir()}/${ulid().toLowerCase()}${formatExtname}`;
+    if(resize || fileExtname){
+
+        await new Promise((resolve, rejects) => {
+            const sharpLib = sharp(filePath);
+            if(resize){
+                const ignoreOverflowSize = resize.ignoreOverflowSize ?? false;
+                sharpLib.resize(resize?.width, resize?.height, {withoutEnlargement: !ignoreOverflowSize});
+            }
+
+
+            sharpLib
+                .toFormat(formatExtname as TExtname)
+                .toFile(savePath, (err, info) => {
                     if(err){
                         rejects(`losslessSquash sharp error: ${err.message}`);
                         return;
                     }
-                    resolve(tmpPath);
+                    resolve(savePath);
                 });
         });
     }
 
-    const formatExtname = options?.extname ?? 'webp'
-        .replace('.','')
-        .replace('jpeg','jpg');
 
     const extPluginsMap: IPlugMap = {
         jpg: [imageminJpegtran()],
@@ -72,23 +85,22 @@ const losslessSquash: TLosslessSquash = async (path, options) => {
 
     const buffer: Buffer[] = [];
     return new Promise<Buffer>((resolve, reject) => {
-        createReadStream(tmpPath)
+        createReadStream(savePath)
             .pipe(bufferTransform)
             .on('finish', async () => {
                 const optimizedBuffer = await imagemin.buffer(Buffer.concat(buffer), {plugins});
                 resolve(optimizedBuffer);
                 if (resize) {
-                    await fsPromises.unlink(tmpPath);
+                    await fsPromises.unlink(savePath);
                 }
             })
             .on('error', async (error) => {
                 reject(error);
                 if (resize) {
-                    await fsPromises.unlink(tmpPath);
+                    await fsPromises.unlink(savePath);
                 }
             });
     });
-
 };
 
 

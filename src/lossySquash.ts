@@ -4,7 +4,7 @@ import imageminWebp from 'imagemin-webp';
 import imageminPngquant from 'imagemin-pngquant';
 
 import sharp from 'sharp';
-import {TLossySquash} from './types';
+import {TLossySquash, TExtname} from './types';
 import os from 'os';
 import {ulid} from 'ulid';
 import {extname} from 'node:path';
@@ -21,36 +21,47 @@ interface IPlugMap {
  * losslessSquash-mozjpeg https://github.com/imagemin/imagemin-mozjpeg
  * losslessSquash-pngquant https://github.com/imagemin/imagemin-pngquant
  *
- * @param bufferData
+ * @param filePath
  * @param options
  */
-const lossySquash: TLossySquash = async (path, options) => {
+const lossySquash: TLossySquash = async (filePath, options) => {
     const quality = options?.quality ?? 75;
 
 
     // 縮圖
     const resize = options?.resize;
+    const fileExtname = options?.extname;
 
-    let tmpPath = path;
-    if(resize){
-        tmpPath = `${os.tmpdir()}/${ulid().toLowerCase()}${extname(path)}`;
-        const ignoreOverflowSize = resize.ignoreOverflowSize ?? false;
-        tmpPath = await new Promise((resolve, rejects) => {
-            sharp(path)
-                .resize(resize?.width, resize?.height, {withoutEnlargement: !ignoreOverflowSize})
-                .toFile(tmpPath, (err, info) => {
+
+
+    const formatExtname = options?.extname ?? extname(filePath)
+        .replace('.','')
+        .replace('jpeg','jpg');
+
+    const savePath = `${os.tmpdir()}/${ulid().toLowerCase()}${formatExtname}`;
+    if(resize || fileExtname){
+
+        await new Promise((resolve, rejects) => {
+            const sharpLib = sharp(filePath);
+            if(resize){
+                const ignoreOverflowSize = resize.ignoreOverflowSize ?? false;
+                sharpLib.resize(resize?.width, resize?.height, {withoutEnlargement: !ignoreOverflowSize});
+            }
+
+
+            sharpLib
+                .toFormat(formatExtname as TExtname)
+                .toFile(savePath, (err, info) => {
                     if(err){
                         rejects(`losslessSquash sharp error: ${err.message}`);
                         return;
                     }
-                    resolve(tmpPath);
+                    resolve(savePath);
                 });
+
         });
     }
 
-    const formatExtname = options?.extname ?? 'webp'
-        .replace('.','')
-        .replace('jpeg','jpg');
 
     // 0 - 100 (100 有時會超過原圖大小)
     const extPluginsMap: IPlugMap = {
@@ -75,19 +86,19 @@ const lossySquash: TLossySquash = async (path, options) => {
 
     const buffer: Buffer[] = [];
     return new Promise<Buffer>((resolve, reject) => {
-        createReadStream(tmpPath)
+        createReadStream(savePath)
             .pipe(bufferTransform)
             .on('finish', async () => {
                 const optimizedBuffer = await imagemin.buffer(Buffer.concat(buffer), {plugins});
                 resolve(optimizedBuffer);
                 if (resize) {
-                    await fsPromises.unlink(tmpPath);
+                    await fsPromises.unlink(savePath);
                 }
             })
             .on('error', async (error) => {
                 reject(error);
                 if (resize) {
-                    await fsPromises.unlink(tmpPath);
+                    await fsPromises.unlink(savePath);
                 }
             });
     });

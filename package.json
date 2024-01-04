@@ -1,6 +1,6 @@
 {
   "name": "bear-node-imagemin",
-  "version": "1.0.4-alpha.0",
+  "version": "1.0.4-alpha.1",
   "description": "imagemin + sharp Nodejs image processing tool",
   "keywords": [
     "typescript",

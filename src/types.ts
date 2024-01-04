@@ -1,5 +1,5 @@
 interface ILosslessOptions {
-    extname?: string,
+    extname?: TExtname
     resize?: {
         width?: number,
         height?: number,
@@ -9,6 +9,8 @@ interface ILosslessOptions {
 interface ILossyOptions extends ILosslessOptions {
     quality?: number, // 1 - 100
 }
+
+export type TExtname = 'jpg'|'png'|'webp';
 
 
 export declare type TLosslessSquash = (bufferData: string, options: ILosslessOptions) => Promise<Buffer>
