@@ -41,7 +41,7 @@ const losslessSquash: TLosslessSquash = async (filePath, options) => {
         .replace('jpeg','jpg');
 
     const savePath = `${os.tmpdir()}/${ulid().toLowerCase()}${formatExtname}`;
-    if(resize || fileExtname){
+    if(resize || options?.extname !== fileExtname){
 
         await new Promise((resolve, rejects) => {
             const sharpLib = sharp(filePath);
@@ -50,9 +50,12 @@ const losslessSquash: TLosslessSquash = async (filePath, options) => {
                 sharpLib.resize(resize?.width, resize?.height, {withoutEnlargement: !ignoreOverflowSize});
             }
 
+            if(options?.extname){
+                sharpLib
+                    .toFormat(formatExtname as TExtname);
+            }
 
             sharpLib
-                .toFormat(formatExtname as TExtname)
                 .toFile(savePath, (err, info) => {
                     if(err){
                         rejects(`losslessSquash sharp error: ${err.message}`);

@@ -20,8 +20,8 @@ describe('losslessSquash Test',  () => {
         });
 
         // 儲存成檔案
-        const tmpTargetFile = path.join(__dirname, '../../static/losslessSquash_tmp.webp');
-        await fsPromises.writeFile(tmpTargetFile, newBuffer);
+        // const tmpTargetFile = path.join(__dirname, '../../static/losslessSquash_tmp.webp');
+        // await fsPromises.writeFile(tmpTargetFile, newBuffer);
 
         // 比對 Buffer
         const targetFile = path.join(__dirname, '../../static/losslessSquash.webp');
